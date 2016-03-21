@@ -1,5 +1,5 @@
 TO DO:<br>
-piirata kaamera kaameral nooltega liikumies xz teljele<br>
+piirata kaameral nooltega liikumies xz teljele<br>
 algsed levelid<br>
 
 # projekt
