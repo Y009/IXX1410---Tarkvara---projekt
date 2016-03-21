@@ -1,0 +1,33 @@
+Save game
+  - per level 
+  - per stage
+  - per mob
+  
+Tower upgrade specialization
+  - spec lightning
+  - spec fire
+  - spec earth
+  - and so on....
+      
+      Basic tower upgrade
+        - up dmg
+        - up speed
+        - up accuracy (implement accuracy?)
+        
+
+Mob path
+  - predefined path to follow
+  - player creates own maze
+
+Replay
+  - watch your magnificence
+  
+Map editior
+  - have player create map with predfined map path for mobs to follow
+  
+Difficulty
+  - The higher the difficulty, the higher the speed
+	  The higher the difficulty, the monsters have more lives
+	  The higher the difficulty, the map layout is harder?
+  
+

@@ -1,0 +1,60 @@
+Game
+
+	Menu
+		Select level
+		Load game
+		Exit
+		???
+	
+	Select level
+		select level(sub)
+			select difficulty
+
+
+In game
+
+Show 
+		Difficulty
+		level
+			level progress
+				x of  X left;
+		score
+		money
+		lives
+			dead?
+			Alive?
+		(Time left?)
+
+
+
+	Build tower menu
+		Tower types
+				if (money<required){tower no build}
+				else {allow build; decrease money;}
+			single target 
+			splash tower
+			high speed, low range
+			low range high speed
+	
+	Monsters
+		Properties:
+			Lifepoints
+			Speed
+			Texture
+		Different types with different properties for each level
+
+	On tower click
+		Upgrade
+		Sell
+		(Cancel selection)
+
+	Pause menu	
+		printf("Paused");
+		Resume
+		Start again
+		Save
+		Exit
+		
+		
+	
+		

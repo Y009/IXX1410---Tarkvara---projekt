@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 9063a76130382814d94e69782e98da47
+timeCreated: 1457614697
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - monsterPrefab: {fileID: 139760, guid: 4bc7f2951fea1c84aa773dedcfbcdaf7, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

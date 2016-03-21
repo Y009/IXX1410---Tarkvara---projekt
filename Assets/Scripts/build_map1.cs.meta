@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 365399c8770a6554eb3bf37eddc9b5ea
+timeCreated: 1457612012
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - uusklots: {fileID: 191612, guid: a4db9b147764d55468aad38faa02a64b, type: 2}
+  - castle: {fileID: 120406, guid: 3b8ca57eadf166c4dbc1430f5eddf699, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,42 @@
+Tower types
+  Basic
+  - arrow
+  - cannon
+  - melee 
+  - slow
+  - aura (boost tower dmg/spd/acc)
+  - detect tower (detect invisible units)
+  - 
+  
+  Upgraded towers
+    
+    Combine basic towers
+    - arrow + slow
+    - melee + slow
+    
+    With specializations
+      (for example lightning spec)
+      - lightning detects invis
+      - more dmg against specific units
+  
+  
+------------------------------------------------------------------------------------------------------  
+  
+  
+Monster types
+  Basic
+  - 
+  
+  Special
+  - attacker (less hp but attacks towers)
+  - invisible
+  - immune to slow
+  - flying (ignores certain towers, ignores maze if not in map with predefined path)
+  
+  Boss
+  - extra hp
+  - gives extra gold
+  - reduces more lives
+  
+  
+  
