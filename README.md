@@ -1,3 +1,7 @@
+TO DO:<br>
+piirata kaamera kaameral nooltega liikumies xz teljele<br>
+algsed levelid<br>
+
 # projekt
 
 2016 TTÜ<br>
