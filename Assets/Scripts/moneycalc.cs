@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class moneycalc : MonoBehaviour {
 
     Text moneytxt;
-    private int money;
+    public static int money;
     void Start()
     {
         moneytxt = GetComponent<Text>();
