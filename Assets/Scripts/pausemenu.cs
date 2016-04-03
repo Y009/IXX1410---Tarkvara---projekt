@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class pausemenu : MonoBehaviour
 {
-
+    //buggine pause menu
     public AudioClip playsnd;
     bool paused = false;
 
@@ -35,7 +35,6 @@ public class pausemenu : MonoBehaviour
                 }
             else if (GUILayout.Button("EXIT"));
                 {
-                  //AudioSource.PlayClipAtPoint(exitsnd, new Vector3(5, 1, 2));
                     Application.Quit();
                 }
         }

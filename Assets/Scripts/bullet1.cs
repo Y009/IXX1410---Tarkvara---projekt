@@ -1,43 +1,76 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class bullet1 : MonoBehaviour {
 
-	// Use this for initialization
+    private float LastShotTime;
+    public float AttTime;
+
+    public GameObject bullet;
+    private attack s_attack;
+    public List<GameObject> enemiesInRange;
+
 	void Start () {
-	
+        enemiesInRange = new List<GameObject>();
+        LastShotTime = Time.time;
 	}
 
-    // Speed
-    public float speed = 10;
-
-    // Target (set by Tower)
-    public Transform target;   
-
-	// Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-
-        if (target)
+        GameObject target = null;
+        int minHpEnemy =int.MaxValue;                   //initsialiseerib lihtsalt int'ga, aga kuna edasi otsib v2iksemaid siis max int v22rtusega.
+        foreach (GameObject enemy in enemiesInRange)    //targetib alati v2himate eludega vastast
         {
-            // Fly towards the target        
-            Vector3 dir = target.position - transform.position;
-            GetComponent<Rigidbody>().velocity = dir.normalized * speed;
+            int hpdiff = enemy.GetComponent<Mobmove>().hpdiff();
+            if (hpdiff < minHpEnemy)
+            {
+                target = enemy;
+                minHpEnemy = hpdiff;
+            }
+          
         }
-        else
+
+        if (target!=null)                       //kui ei ole sihtm2rki, ei lase
         {
-            // Otherwise destroy self
-            Destroy(gameObject);
+            if(Time.time - LastShotTime > AttTime)      //kas on piisavalt aega m66dunud viimasest laskmisest
+            {
+                Shoot(target.GetComponent<Collider>());
+                LastShotTime = Time.time;       //uus viimaselaskmise aeg
+            }
         }
     }
 
-    void OnTriggerEnter(Collider co)
+    void Shoot(Collider co)
     {
-        Health health = co.GetComponentInChildren<Health>();
-        if (health)
+        GameObject Pew = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity); //teeb kuuli
+        Pew.GetComponent<flytomob>().dmg = this.GetComponentInParent<attack>().dmg;
+        Pew.GetComponent<flytomob>().target = co.transform;
+    }
+
+    void OnEnemyDestroy(GameObject enemy)       //v6tab listist 2ra kui sureb
+    {
+        enemiesInRange.Remove(enemy);
+    }
+
+    void OnTriggerEnter(Collider other)         //kui j6uab triggeri alasse, lisab listi
+    {
+
+        if (other.gameObject.tag.Equals("Enemy"))
         {
-            health.decrease();
-            Destroy(gameObject);
+            enemiesInRange.Add(other.gameObject);
+            destroydelegate del = other.gameObject.GetComponent<destroydelegate>();
+            del.enemyDelegate += OnEnemyDestroy;
+        }
+    }
+
+    void OnTriggerExit(Collider other)          //kui l2heb alast v2lja eemaldam listist
+    {
+        if (other.gameObject.tag.Equals("Enemy"))
+        {
+            enemiesInRange.Remove(other.gameObject);
+            destroydelegate del = other.gameObject.GetComponent<destroydelegate>();
+            del.enemyDelegate -= OnEnemyDestroy;
         }
     }
 }

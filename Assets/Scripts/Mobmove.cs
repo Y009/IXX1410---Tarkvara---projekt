@@ -4,11 +4,17 @@ using System.Collections;
 public class Mobmove : MonoBehaviour {
     public int svalue;  //palju skoori annab
     public int mvalue;  //palju raha annab
-	// Use this for initialization
+    public int hp;
+    private int hpmax;
+    private int relay;
+
+    private attack s_attack;    //v6tan attack scriptist elud
+	
 	void Start () {
-        GameObject castle = GameObject.Find("Castle");
+        GameObject castle = GameObject.FindWithTag("castle");
         if (castle)
             GetComponent<NavMeshAgent>().destination = castle.transform.position;
+        hpmax = hp;
 	}
 	
 	// Update is called once per frame
@@ -18,11 +24,24 @@ public class Mobmove : MonoBehaviour {
 
     void OnTriggerEnter(Collider co)
     {
-        // If castle then deal Damage, destroy self
-        if (co.name == "Castle")
+        if (co.gameObject.tag == "castle")
         {
-            co.GetComponentInChildren<Health>().decrease();
+            //relay = s_attack.dmg;
+            co.GetComponentInChildren<Health>().decrease(1);
             Destroy(gameObject);
         }
     }
+
+    public int hpdiff()
+    {
+        return hpmax - hp;
+    }
 }
+
+
+
+
+
+
+
+

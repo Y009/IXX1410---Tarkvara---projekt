@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    TextMesh tm;
+    TextMesh hptext;
     private int relay;  //annan parentilt edasi calc'ile.
     private int relay2;
+    private int hp;
+    private int hpmax;
 
 	void Start () 
     {
-        tm = GetComponent<TextMesh>();
+        hptext = GetComponent<TextMesh>();
+        if (transform.parent.tag == "Enemy")
+            hp = this.GetComponentInParent<Mobmove>().hp;
+        else if(transform.parent.tag == "castle")
+            hp = this.GetComponentInParent<destroycastle>().hp;
+        hpmax = hp;
+        updatehp();
 	}
 	
 	void Update () 
@@ -19,16 +28,19 @@ public class Health : MonoBehaviour
 
     public int current()
     {
-        return tm.text.Length;
+        return hp;
     }
 
-    public void decrease()
+    public void decrease(int modhp)
     {
         if (current() > 1)
-            tm.text = tm.text.Remove(tm.text.Length - 1); // kui elud pole kriitilised v]tab elu maha
+        {
+            hp = hp - modhp; // kui elud pole kriitilised v]tab elu maha
+            updatehp();
+        }
         else
         {
-            //teha if, vaatamaks kas l2heb mobil elusid v6i castleil.
+            //teha if, vaatamaks kas l2heb mobil elusid v6i castleil. / v6i teha castleile oma script...
             Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
             relay = this.transform.parent.GetComponent<Mobmove>().svalue;
             GameObject go = GameObject.Find("score");
@@ -41,4 +53,9 @@ public class Health : MonoBehaviour
             other2.modifymoney(relay2);
         }
     }
+
+    void updatehp()
+    {
+        hptext.text = hp + "/" + hpmax;
+    }    
 }

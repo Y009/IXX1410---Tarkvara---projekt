@@ -1,14 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Buildplace : MonoBehaviour 
+public class Buildplace : MonoBehaviour
 {
-    //public GameObject towerPrefab;  //tower'i prefabrication
+    public GameObject towerPrefab;  //tower'i prefabrication
+    private GameObject tower;
+    public int towerValue;
+    private int currentMoney;
 
-    //void OnMouseUpAsButton()
-    //{ 
-    //    //ehitab torni buildplace'ile
-    //    GameObject g = (GameObject)Instantiate(towerPrefab);    //insantiate copyb toweri: towerprefab
-    //    g.transform.position = transform.position + Vector3.up; //muudab uue torni asukohta
-    //}
+    // Kas kursori asukoha juures on tower?
+    private bool canPlaceTower()
+    {
+        return tower == null;
+    }
+
+    // Kas on piisavalt raha toweri ehitamiseks?
+    private bool haveEnoughMoney()
+    {
+        currentMoney = moneycalc.money;
+
+        if (currentMoney < towerValue + 200)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    void OnMouseUp()
+    {
+        if (canPlaceTower() && haveEnoughMoney())
+        {
+            tower = (GameObject)
+            Instantiate(towerPrefab, transform.position + Vector3.up, Quaternion.identity);
+
+            GameObject go = GameObject.Find("money");
+            moneycalc other = (moneycalc)go.GetComponent(typeof(moneycalc));
+            other.modifymoney(towerValue);
+        }
+    }
 }
