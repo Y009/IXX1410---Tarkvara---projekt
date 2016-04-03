@@ -1,6 +1,11 @@
 TO DO:<br>
-piirata kaameral nooltega liikumies xz teljele<br>
-algsed levelid<br>
+-piirata kaameral nooltega liikumies xz teljele<br>
+-algsed levelid<br>
+-castle elud health scriptis v6i uus script sellele teha <br>
+-GUIscript eraldi<br>
+-toweri ehitamisel valik anda kas ja mida ehitada või myya <br>
+-....
+
 
 # projekt
 
