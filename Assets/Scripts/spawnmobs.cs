@@ -16,8 +16,6 @@ public class spawnmobs : MonoBehaviour {
      private ArrayList enemies;
      private bool allEnemiesSpawned = false;
      bool gameover = false;
-
-     
      private float velocity = 4f;
      private float health = 20f;
      private int enemyAmount = 10;
@@ -144,8 +142,8 @@ public class spawnmobs : MonoBehaviour {
                  System.Threading.Thread.Sleep(250);
                  SceneManager.SetActiveScene(SceneManager.GetActiveScene());
              }
-             else if (GUILayout.Button("EXIT")) ;
-             Application.Quit();
+             else if (GUILayout.Button("EXIT"))
+                 Application.Quit();
 
          }
      }

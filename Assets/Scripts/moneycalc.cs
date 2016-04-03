@@ -5,11 +5,10 @@ using UnityEngine.UI;
 public class moneycalc : MonoBehaviour {
 
     Text moneytxt;
-    public static int money;
+    public int money = 500;
     void Start()
     {
         moneytxt = GetComponent<Text>();
-        money = 100;
         UpdateMoney();
     }
 

@@ -7,9 +7,15 @@ public class Buildplace : MonoBehaviour
     private GameObject tower;
     public int towerValue;
     private int currentMoney;
+    public GameObject money;
+    private moneycalc s_moneycalc;
 
+    void Awake()
+    {
+        s_moneycalc = money.GetComponent<moneycalc>();
+    }
     // Kas kursori asukoha juures on tower?
-    private bool canPlaceTower()
+    private bool canPlaceTower()    //kuidas see t66tab?
     {
         return tower == null;
     }
@@ -17,9 +23,10 @@ public class Buildplace : MonoBehaviour
     // Kas on piisavalt raha toweri ehitamiseks?
     private bool haveEnoughMoney()
     {
-        currentMoney = moneycalc.money;
 
-        if (currentMoney < towerValue + 200)
+        currentMoney = s_moneycalc.money;
+        Debug.Log(currentMoney);
+        if (currentMoney < towerValue + (-2)*(towerValue))
         {
             return false;
         }
@@ -36,9 +43,7 @@ public class Buildplace : MonoBehaviour
             tower = (GameObject)
             Instantiate(towerPrefab, transform.position + Vector3.up, Quaternion.identity);
 
-            GameObject go = GameObject.Find("money");
-            moneycalc other = (moneycalc)go.GetComponent(typeof(moneycalc));
-            other.modifymoney(towerValue);
+            s_moneycalc.modifymoney(towerValue);
         }
     }
 }

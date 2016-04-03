@@ -33,7 +33,7 @@ public class pausemenu : MonoBehaviour
                     paused = togglePause();
                     SceneManager.SetActiveScene(SceneManager.GetActiveScene());
                 }
-            else if (GUILayout.Button("EXIT"));
+            else if (GUILayout.Button("EXIT"))
                 {
                     Application.Quit();
                 }

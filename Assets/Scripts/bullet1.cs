@@ -8,7 +8,7 @@ public class bullet1 : MonoBehaviour {
     public float AttTime;
 
     public GameObject bullet;
-    private attack s_attack;
+   // private attack s_attack;
     public List<GameObject> enemiesInRange;
 
 	void Start () {
@@ -64,7 +64,7 @@ public class bullet1 : MonoBehaviour {
         }
     }
 
-    void OnTriggerExit(Collider other)          //kui l2heb alast v2lja eemaldam listist
+    void OnTriggerExit(Collider other)          //kui l2heb alast v2lja eemaldab listist
     {
         if (other.gameObject.tag.Equals("Enemy"))
         {

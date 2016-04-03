@@ -6,10 +6,7 @@ public class Mobmove : MonoBehaviour {
     public int mvalue;  //palju raha annab
     public int hp;
     private int hpmax;
-    private int relay;
 
-    private attack s_attack;    //v6tan attack scriptist elud
-	
 	void Start () {
         GameObject castle = GameObject.FindWithTag("castle");
         if (castle)
@@ -26,7 +23,6 @@ public class Mobmove : MonoBehaviour {
     {
         if (co.gameObject.tag == "castle")
         {
-            //relay = s_attack.dmg;
             co.GetComponentInChildren<Health>().decrease(1);
             Destroy(gameObject);
         }
