@@ -4,7 +4,7 @@ using System.Collections;
 public class Buildplace : MonoBehaviour
 {
     public GameObject towerPrefab;  //tower'i prefabrication
-   // private GameObject tower;
+    private GameObject tower;
 
     public int towerValue;
     private int currentMoney;

@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\exitgame.cs" />
      <Compile Include="Assets\Scripts\flytomob.cs" />
      <Compile Include="Assets\Scripts\gotoeditor.cs" />
+     <Compile Include="Assets\Scripts\guiscripts.cs" />
      <Compile Include="Assets\Scripts\menu1.cs" />
      <Compile Include="Assets\Scripts\money.cs" />
      <Compile Include="Assets\Scripts\moneycalc.cs" />
