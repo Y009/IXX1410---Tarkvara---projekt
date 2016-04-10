@@ -26,14 +26,9 @@ public class Health : MonoBehaviour
         transform.forward = Camera.main.transform.forward;  //paneb hp kaameraga paralleelseks
 	}
 
-    public int current()
-    {
-        return hp;
-    }
-
     public void decrease(int modhp)
     {
-        if (current() > 1)
+        if (hp > 1)
         {
             hp = hp - modhp; // kui elud pole kriitilised v]tab elu maha
             updatehp();

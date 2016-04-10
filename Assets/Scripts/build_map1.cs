@@ -53,9 +53,9 @@ public class build_map1 : MonoBehaviour
 
     bool checkIfPosEmpty(Vector3 targetPos) //et ei paneks kaste yksteise sisse, mis v6tab jube palju m2lu jube kiiresti...
     {
-        Vector3 CheckPos = targetPos;
-        CheckPos.y = 1;
-        if (Physics.CheckSphere(CheckPos, 0.1F))
+        //Vector3 CheckPos = targetPos;
+        targetPos.y = 1;
+        if (Physics.CheckSphere(targetPos, 0.1F))
             return false;
         return true;
     }

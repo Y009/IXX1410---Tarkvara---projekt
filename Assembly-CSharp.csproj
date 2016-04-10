@@ -47,7 +47,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Buildplace.cs" />
      <Compile Include="Assets\Scripts\CameraMovement.cs" />
-     <Compile Include="Assets\Scripts\GG.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Mobmove.cs" />
      <Compile Include="Assets\Scripts\attack.cs" />
@@ -61,15 +60,14 @@
      <Compile Include="Assets\Scripts\exitgame.cs" />
      <Compile Include="Assets\Scripts\flytomob.cs" />
      <Compile Include="Assets\Scripts\gotoeditor.cs" />
-     <Compile Include="Assets\Scripts\layoutground.cs" />
      <Compile Include="Assets\Scripts\menu1.cs" />
      <Compile Include="Assets\Scripts\money.cs" />
      <Compile Include="Assets\Scripts\moneycalc.cs" />
      <Compile Include="Assets\Scripts\pausemenu.cs" />
      <Compile Include="Assets\Scripts\playgame.cs" />
      <Compile Include="Assets\Scripts\scorecalc.cs" />
-     <Compile Include="Assets\Scripts\scorecount.cs" />
      <Compile Include="Assets\Scripts\spawnmobs.cs" />
+     <Compile Include="Assets\guiscript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
