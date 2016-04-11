@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\pausemenu.cs" />
      <Compile Include="Assets\Scripts\playgame.cs" />
      <Compile Include="Assets\Scripts\scorecalc.cs" />
+     <Compile Include="Assets\Scripts\selecttower.cs" />
      <Compile Include="Assets\Scripts\spawnmobs.cs" />
      <Compile Include="Assets\guiscript.cs" />
  <Reference Include="UnityEngine.UI">

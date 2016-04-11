@@ -27,7 +27,7 @@ public class pausemenu : MonoBehaviour
             else if (GUILayout.Button("Main Menu"))
                 {
                     SceneManager.LoadScene("scene3", LoadSceneMode.Single);
-                    System.Threading.Thread.Sleep(250);
+                    System.Threading.Thread.Sleep(250);         //.sleep ei ole v2ga 6ige kasutada, vaja mingi aeg v2lja vahetada
                     Vector3 loc = GameObject.Find("Main Camera").transform.position + new Vector3(0, -1.5f, 0);
                     AudioSource.PlayClipAtPoint(playsnd, loc);
                     paused = togglePause();

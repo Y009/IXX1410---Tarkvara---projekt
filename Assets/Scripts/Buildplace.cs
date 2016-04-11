@@ -47,7 +47,7 @@ public class Buildplace : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(checkpos, Vector3.up, out hit, 5, towerMask))
         {
-            if (hit.collider is CapsuleCollider)
+            if (hit.collider is MeshCollider)
                 return false;
         }
         return true;
@@ -58,7 +58,6 @@ public class Buildplace : MonoBehaviour
     {
 
         currentMoney = s_moneycalc.money;
-       // Debug.Log(currentMoney);
         if (currentMoney < towerValue + (-2)*(towerValue))      //kuna toweri v22rtus on negatiivne
         {
             return false;
