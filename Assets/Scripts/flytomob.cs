@@ -4,7 +4,7 @@ using System.Collections;
 public class flytomob : MonoBehaviour {
 
     public Transform target;    //bullet1 annab targeti
-    public int dmg;
+    public float dmg;
     public float speed;
 
 	void Start () {

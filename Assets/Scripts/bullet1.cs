@@ -6,6 +6,9 @@ public class bullet1 : MonoBehaviour {
 
     private float LastShotTime;
     public float AttTime;
+    public float dmg;
+
+    private GameObject s_money;
 
     private GameObject go_GUI;
     public GameObject bullet;
@@ -33,16 +36,18 @@ public class bullet1 : MonoBehaviour {
 	void Start () 
     {
         target = null;
+        s_money = GameObject.Find("money");
         go_GUI = GameObject.Find("GUI");
         UpdateTime = Time.fixedTime + 30.0f;
         upgrading = false;
         enemiesInRange = new List<GameObject>();
         LastShotTime = Time.time;
-        upgRect = new Rect(20, 20, 120, 50); //@inputmouse pos
+        upgRect = new Rect(20, 20, 190, 50); //@inputmouse pos
 	}
 
     void Update()
     {
+        target = null;
         int minHpEnemy =int.MaxValue;                   //initsialiseerib lihtsalt int'ga, aga kuna edasi otsib v2iksemaid siis max int v22rtusega.
         foreach (GameObject enemy in enemiesInRange)    //targetib alati v2himate eludega vastast
         {
@@ -85,7 +90,7 @@ public class bullet1 : MonoBehaviour {
     void Shoot(Collider co)
     {
         GameObject Pew = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity); //teeb kuuli
-        Pew.GetComponent<flytomob>().dmg = this.GetComponentInParent<attack>().dmg;
+        Pew.GetComponent<flytomob>().dmg = dmg;
         Pew.GetComponent<flytomob>().target = co.transform;
     }
 
@@ -123,10 +128,88 @@ public class bullet1 : MonoBehaviour {
 
     void towerwindow(int ID)
     {
-        if (GUI.Button(new Rect(10, 20, 100, 20), "Hello World"))
+        int dpscost = 50;
+
+        //GUILayout.BeginHorizontal();
+        if (GUI.Button(new Rect(5, 20, 40, 20), "DPS"))
         {
-            print("Got a click");
+            print("upg damage +1");
+            if (haveEnoughMoney(dpscost))
+            { 
+                dmg += 1;
+                dpscost += 10;
+                s_money.GetComponent<moneycalc>().modifymoney(-dpscost);
+            }
+            else
+            {
+                Debug.Log("Not enough money.");
+            }
+
             upgrading = false;
         }
+
+        else if (GUI.Button(new Rect(50, 20, 40, 20), "SPD"))
+        {
+            print("upg speed");
+            //if (haveEnoughMoney(dpscost))
+            //{
+            //    dmg += 1;
+            //    dpscost += 10;
+            //}
+            //else
+            //{
+            //    Debug.Log("Not enough money.");
+            //}
+
+            upgrading = false;
+        }
+
+        else if (GUI.Button(new Rect(95, 20, 40, 20), "RNG"))
+        {
+            print("upg range");
+            //if (haveEnoughMoney(dpscost))
+            //{
+            //    dmg += 1;
+            //    dpscost += 10;
+            //}
+            //else
+            //{
+            //    Debug.Log("Not enough money.");
+            //}
+
+            upgrading = false;
+        }
+        else if (GUI.Button(new Rect(140, 20, 45, 20), "SELL"))
+        {
+            print("sell tower");
+            //if (haveEnoughMoney(dpscost))
+            //{
+            //    dmg += 1;
+            //    dpscost += 10;
+            //}
+            //else
+            //{
+            //    Debug.Log("Not enough money.");
+            //}
+
+            upgrading = false;
+        }
+        //GUILayout.EndHorizontal();
+
     }
+
+    private bool haveEnoughMoney(int cost)
+    {
+
+        int currentMoney = s_money.GetComponent<moneycalc>().money;
+        if (currentMoney < cost)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
 }

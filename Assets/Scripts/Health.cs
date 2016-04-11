@@ -7,8 +7,8 @@ public class Health : MonoBehaviour
     TextMesh hptext;
     private int relay;  //annan parentilt edasi calc'ile.
     private int relay2;
-    private int hp;
-    private int hpmax;
+    private float hp;
+    private float hpmax;
 
 	void Start () 
     {
@@ -26,7 +26,13 @@ public class Health : MonoBehaviour
         transform.forward = Camera.main.transform.forward;  //paneb hp kaameraga paralleelseks
 	}
 
-    public void decrease(int modhp)
+    void FixedUpdate()
+    {
+        if (hp <= 0)
+            Destroy(this.transform.parent.gameObject);
+    }
+
+    public void decrease(float modhp)
     {
         if (hp > 1)
         {
