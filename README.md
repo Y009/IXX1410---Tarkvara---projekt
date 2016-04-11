@@ -1,4 +1,6 @@
 TO DO:<br>
+-fixida bullet1() fixedupdate .sort 2ra<br>
+-hakata upgrade asju lisama<br>
 -piirata kaameral nooltega liikumies xz teljele<br>
 -algsed levelid<br>
 -castle elud health scriptis v6i uus script sellele teha <br>
