@@ -17,7 +17,7 @@ compiled version : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/
 2016 TTÜ<br>
 IXX1410 - Tarkvara-projekt 
 
-
+![TDpre0](https://i.imgur.com/ccULAfZ.gif)
 ![TDpre](http://i.imgur.com/ZqMOLMH.gif)
 
 ![TDpre2](http://i.imgur.com/ZRVZi43.gif)
