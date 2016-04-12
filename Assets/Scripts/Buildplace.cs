@@ -6,7 +6,7 @@ public class Buildplace : MonoBehaviour
     public GameObject towerPrefab;  //tower'i prefabrication
     private GameObject tower;
 
-    public int towerValue;
+    private int towerValue;
     private int currentMoney;
 
     public GameObject money;
@@ -24,7 +24,8 @@ public class Buildplace : MonoBehaviour
 
     void Start()
     {
-        
+       // s_money.GetComponent<moneycalc>().modifymoney(dpscost);
+        towerValue -= towerPrefab.GetComponent<bullet1>().towerprice;
     }
 
     void FixedUpdate()

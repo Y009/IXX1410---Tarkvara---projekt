@@ -28,8 +28,12 @@ public class Health : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (hp <= 0)
+        if (hp <= 0 && transform.parent.tag == "Enemy")
+        {
             Destroy(this.transform.parent.gameObject);
+            decreaseElse();
+            
+        }
     }
 
     public void decrease(float modhp)
@@ -41,22 +45,26 @@ public class Health : MonoBehaviour
         }
         else
         {
-            //teha if, vaatamaks kas l2heb mobil elusid v6i castleil. / v6i teha castleile oma script...
-            Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
-            relay = this.transform.parent.GetComponent<Mobmove>().svalue;
-            GameObject go = GameObject.Find("score");
-            scorecalc other = (scorecalc)go.GetComponent(typeof(scorecalc));
-            other.modifyscore(relay);
-
-            relay2 = this.transform.parent.GetComponent<Mobmove>().mvalue;
-            GameObject go2 = GameObject.Find("money");
-            moneycalc other2 = (moneycalc)go2.GetComponent(typeof(moneycalc));
-            other2.modifymoney(relay2);
+            decreaseElse();
         }
     }
 
     void updatehp()
     {
         hptext.text = hp + "/" + hpmax;
-    }    
+    }
+    void decreaseElse()
+    { 
+        Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
+        relay = this.transform.parent.GetComponent<Mobmove>().svalue;
+        GameObject go = GameObject.Find("score");
+        scorecalc other = (scorecalc)go.GetComponent(typeof(scorecalc));
+        other.modifyscore(relay);
+
+        relay2 = this.transform.parent.GetComponent<Mobmove>().mvalue;
+        GameObject go2 = GameObject.Find("money");
+        moneycalc other2 = (moneycalc)go2.GetComponent(typeof(moneycalc));
+        other2.modifymoney(relay2);
+    
+    }
 }

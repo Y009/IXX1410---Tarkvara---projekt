@@ -4,9 +4,16 @@ using System.Collections.Generic;
 
 public class bullet1 : MonoBehaviour {
 
+    public int towerprice = 100;
+    public float sellmod = 0.75f; //mitu protsenti annan myyes tagasi
+    public int maxuplvl = 5;    //mitu korda luban upgradeida yhte toweri statsi
+    private int dpscost = 75, spdcost = 75, rngcost = 75;
+    private int maxdps = 0, maxspd = 0, maxrng = 0;
+
     private float LastShotTime;
     public float AttTime;
     public float dmg;
+    private SphereCollider coll;
 
     private GameObject s_money;
 
@@ -35,6 +42,7 @@ public class bullet1 : MonoBehaviour {
 
 	void Start () 
     {
+        coll = this.gameObject.GetComponent<SphereCollider>();
         target = null;
         s_money = GameObject.Find("money");
         go_GUI = GameObject.Find("GUI");
@@ -42,7 +50,7 @@ public class bullet1 : MonoBehaviour {
         upgrading = false;
         enemiesInRange = new List<GameObject>();
         LastShotTime = Time.time;
-        upgRect = new Rect(20, 20, 190, 50); //@inputmouse pos
+        upgRect = new Rect(20, 20, 235, 50); //@inputmouse pos
 	}
 
     void Update()
@@ -128,45 +136,84 @@ public class bullet1 : MonoBehaviour {
 
     void towerwindow(int ID)
     {
-        int dpscost = 50;
+        int sellprice = (int) (towerprice*sellmod);
+        if (dpscost != 75)    //myyes annan 75% algsest toweri hinnast + viimaste upgradeide raha tagasi.
+        { 
+            sellprice = sellprice - 20 + dpscost; //20 initida default upgrade price'ina
+        }
+        if (spdcost !=75)
+        {
+            sellprice = sellprice - 20 + dpscost;
+        }
+        if (rngcost != 75)
+        {
+            sellprice = sellprice - 20 + rngcost;
+        }
+        
+
 
         //GUILayout.BeginHorizontal();
         if (GUI.Button(new Rect(5, 20, 40, 20), "DPS"))
         {
             print("upg damage +1");
-            if (haveEnoughMoney(dpscost))
+            if (haveEnoughMoney(dpscost) && (maxdps != maxuplvl))
             { 
                 dmg += 1;
-                dpscost += 10;
                 s_money.GetComponent<moneycalc>().modifymoney(-dpscost);
+                dpscost += 10;
+                //upgrading = false;
+                maxdps++;
+                print(maxdps);
+                print(dpscost);
             }
             else
             {
                 Debug.Log("Not enough money.");
             }
-
-            upgrading = false;
         }
 
         else if (GUI.Button(new Rect(50, 20, 40, 20), "SPD"))
         {
             print("upg speed");
-            //if (haveEnoughMoney(dpscost))
-            //{
-            //    dmg += 1;
-            //    dpscost += 10;
-            //}
-            //else
-            //{
-            //    Debug.Log("Not enough money.");
-            //}
-
-            upgrading = false;
+            if (haveEnoughMoney(spdcost) && (maxspd != maxuplvl))
+            {
+                AttTime -= 0.1f;
+                s_money.GetComponent<moneycalc>().modifymoney(-spdcost);
+                spdcost += 20;
+                //upgrading = false;
+                maxspd++;
+                print(maxspd);
+                print(spdcost);
+            }
+            else
+            {
+                Debug.Log("Not enough money.");
+            }
         }
 
         else if (GUI.Button(new Rect(95, 20, 40, 20), "RNG"))
         {
             print("upg range");
+            if (haveEnoughMoney(rngcost) && (maxrng != maxuplvl))
+            {
+                coll.radius += 1;
+                s_money.GetComponent<moneycalc>().modifymoney(-rngcost);
+                rngcost += 20;
+                maxrng++;
+                print(maxrng);
+                print(rngcost);
+                //upgrading = false;
+            }
+            else
+            {
+                Debug.Log("Not enough money.");
+            }
+        }
+        else if (GUI.Button(new Rect(140, 20, 45, 20), "SELL"))
+        {
+            print("sell tower");
+            s_money.GetComponent<moneycalc>().modifymoney(sellprice);
+            Destroy(gameObject);
             //if (haveEnoughMoney(dpscost))
             //{
             //    dmg += 1;
@@ -179,36 +226,31 @@ public class bullet1 : MonoBehaviour {
 
             upgrading = false;
         }
-        else if (GUI.Button(new Rect(140, 20, 45, 20), "SELL"))
+        else if (GUI.Button(new Rect(190, 20, 40, 20), "nvm"))
         {
-            print("sell tower");
-            //if (haveEnoughMoney(dpscost))
-            //{
-            //    dmg += 1;
-            //    dpscost += 10;
-            //}
-            //else
-            //{
-            //    Debug.Log("Not enough money.");
-            //}
-
+            print("cancle upgrade");
             upgrading = false;
         }
         //GUILayout.EndHorizontal();
 
     }
 
+    void upgradingtower()
+    { 
+    //panna k6ik upgradeid siia, v6ttes vatu mida upg ja cost, et oleks modulaarne
+    }
+
     private bool haveEnoughMoney(int cost)
     {
 
         int currentMoney = s_money.GetComponent<moneycalc>().money;
-        if (currentMoney < cost)
+        if (currentMoney >= cost)
         {
-            return false;
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
     
