@@ -9,19 +9,22 @@ public class spawnmobs : MonoBehaviour {
      public GameObject monsterPrefab;
      public Transform[] spawnPointRoot;
      
-     private int waveLevel = 0;
-     private float diffucultyMultiplier = 1.0f;
+     private int waveLevel = 1;
+     private float difficultyMod = 1.0f;
      private float intermissionLength = 10f;
      private int enemyCount = 0;
      private ArrayList enemies;
      private bool allEnemiesSpawned = false;
-     bool gameover = false;
+     private bool gameover = false;
      private float velocity = 4f;
-     private float health = 20f;
+     private float health = 5f;
      private int enemyAmount = 10;
      private float spawnIntervall = 1;
+     private int waveEndBonus = 25;
+
+     private GameObject s_money;
      
-    // private GUIScript gui; vaja see teha
+    // private GUIScript gui;
      
      public enum GameState {
          preStart,
@@ -32,6 +35,7 @@ public class spawnmobs : MonoBehaviour {
      GameState state = GameState.preStart;
      
      void Start(){
+         s_money = GameObject.Find("money");
          enemies = new ArrayList();
         // gui = Camera.main.GetComponentInChildren<GUIScript>();
      }
@@ -72,7 +76,8 @@ public class spawnmobs : MonoBehaviour {
      }
      
      void setNextWave(){
-         diffucultyMultiplier = (diffucultyMultiplier * waveLevel) / 2;
+         health += 5;
+         //difficultyMod = (difficultyMod * waveLevel) / 2;
      }
      
      void startNewWave(){
@@ -87,9 +92,9 @@ public class spawnmobs : MonoBehaviour {
          startNewWave();
      }
      
-     IEnumerator EnemySpawnerRoutine(float spawnIntervall, int enemyAmount, float velocity, float health){
+     IEnumerator EnemySpawnerRoutine(float spawnIntervall, int enemyAmount){
          for(int i = 0; i < enemyAmount; i++){
-             spawnNewEnemy(velocity, health);
+             spawnNewEnemy();
              yield return new WaitForSeconds(spawnIntervall);
          }
          allEnemiesSpawned = true;
@@ -99,27 +104,35 @@ public class spawnmobs : MonoBehaviour {
          StartCoroutine("InterMission",intermissionLength);
          state = GameState.intermission;
          waveActive = false;
+         s_money.GetComponent<moneycalc>().modifymoney(waveEndBonus);
      }
      
-     void spawnNewEnemy(float velocity, float health){
+     void spawnNewEnemy(){
 
          if ((GameObject.Find("Castle(Clone)")) || (GameObject.Find("Castle")))
-            Instantiate(monsterPrefab, transform.position, Quaternion.identity);
-         // GameObject e = (GameObject) Instantiate(enemy, new Vector3(0,0,0), Quaternion.identity);
-         //EnemyScript es = e.GetComponentInChildren<EnemyScript>();
-         //int i = Random.Range(0,2);
-         //es.setWaypoints(spawnPointRoot[i]);
-         //es.maxHealth = health;
-         //es.currHealth = health;
-         //es.speed = velocity;
-         //enemyCount++;
-         //enemies.Add(e);
+         { 
+             GameObject mob = (GameObject)Instantiate(monsterPrefab, transform.position, Quaternion.identity);
+             Mobmove s_mob = mob.GetComponent<Mobmove>();
+             s_mob.hp = health;
+             s_mob.hp = (health * difficultyMod);
+             print(health);
+             print(difficultyMod);
+             //print((int)(health * difficultyMod));
+             NavMeshAgent nav_mob = mob.GetComponent<NavMeshAgent>();
+             nav_mob.speed++;
+             //print(s_mob.hp);
+             //EnemyScript es = e.GetComponentInChildren<EnemyScript>();
+             //int i = Random.Range(0, 2);
+             //mob.speed = velocity;
+             enemyCount++;
+             enemies.Add(mob);
+        }
      }
      
      IEnumerator StartMission(float seconds){
          yield return new WaitForSeconds(seconds);
          allEnemiesSpawned = false;
-         StartCoroutine(EnemySpawnerRoutine(spawnIntervall,enemyAmount,velocity,health));
+         StartCoroutine(EnemySpawnerRoutine(spawnIntervall, enemyAmount));
          waveActive = true;
      }
 
@@ -148,4 +161,3 @@ public class spawnmobs : MonoBehaviour {
          }
      }
 }
-

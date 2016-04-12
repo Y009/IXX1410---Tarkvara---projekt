@@ -4,8 +4,8 @@ using System.Collections;
 public class Mobmove : MonoBehaviour {
     public int svalue;  //palju skoori annab
     public int mvalue;  //palju raha annab
-    public int hp;
-    private int hpmax;
+    public float hp;
+    private float hpmax;
 
 	void Start () {
         GameObject castle = GameObject.FindWithTag("castle");
@@ -28,7 +28,7 @@ public class Mobmove : MonoBehaviour {
         }
     }
 
-    public int hpdiff()
+    public float hpdiff()
     {
         return hpmax - hp;
     }

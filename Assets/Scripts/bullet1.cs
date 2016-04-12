@@ -56,10 +56,10 @@ public class bullet1 : MonoBehaviour {
     void Update()
     {
         target = null;
-        int minHpEnemy =int.MaxValue;                   //initsialiseerib lihtsalt int'ga, aga kuna edasi otsib v2iksemaid siis max int v22rtusega.
+        float minHpEnemy =int.MaxValue;                   //initsialiseerib lihtsalt int'ga, aga kuna edasi otsib v2iksemaid siis max int v22rtusega.
         foreach (GameObject enemy in enemiesInRange)    //targetib alati v2himate eludega vastast
         {
-            int hpdiff = enemy.GetComponent<Mobmove>().hpdiff();
+            float hpdiff = enemy.GetComponent<Mobmove>().hpdiff();
             if (hpdiff < minHpEnemy)
             {
                 target = enemy;
