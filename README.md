@@ -1,11 +1,11 @@
 TO DO:<br>
 -fixida bullet1() fixedupdate .sort 2ra<br>
--hakata upgrade asju lisama<br>
+-level difficulty<br>
 -piirata kaameral nooltega liikumies xz teljele<br>
+-kui esimest korda kaamerat liigutada middle mouse clickiga siis s2ilitada algne kaamera positsioon <br>
 -algsed levelid<br>
 -castle elud health scriptis v6i uus script sellele teha <br>
--GUIscript eraldi<br>
--toweri ehitamisel valik anda kas ja mida ehitada või myya <br>
+-GUIscript eraldi?<br>
 -....
 
 
