@@ -9,6 +9,7 @@ public class bullet1 : MonoBehaviour {
     public int maxuplvl = 5;    //mitu korda luban upgradeida yhte toweri statsi
     private int dpscost = 75, spdcost = 75, rngcost = 75;
     private int maxdps = 0, maxspd = 0, maxrng = 0;
+    private int defupadd = 20;
 
     private float LastShotTime;
     public float AttTime;
@@ -137,34 +138,41 @@ public class bullet1 : MonoBehaviour {
     void towerwindow(int ID)
     {
         int sellprice = (int) (towerprice*sellmod);
-        if (dpscost != 75)    //myyes annan 75% algsest toweri hinnast + viimaste upgradeide raha tagasi.
-        { 
-            sellprice = sellprice - 20 + dpscost; //20 initida default upgrade price'ina
+        if (dpscost != 75)      //myyes annan 75% algsest toweri hinnast + viimaste upgradeide raha tagasi.
+        {
+            sellprice = sellprice - defupadd + dpscost; 
         }
         if (spdcost !=75)
         {
-            sellprice = sellprice - 20 + dpscost;
+            sellprice = sellprice - defupadd + dpscost;
         }
         if (rngcost != 75)
         {
-            sellprice = sellprice - 20 + rngcost;
+            sellprice = sellprice - defupadd + rngcost;
         }
-        
 
+        string maxdpsstring = "Upgrade damage\n Current level:" + maxdps + "\n Cost:" + dpscost;
+        string maxspdstring = "Upgrade speed\n Current level:" + maxspd + "\n Cost:" + spdcost;
+        string maxrngstring = "Upgrade range\n Current level:" + maxrng + "\n Cost:" + rngcost;
+        string sellstring = "Sell tower\n Value:" + sellprice;
+        string canclestring = "Close upgrade menu";
+        Rect dpsrect = new Rect(5, 20, 40, 20);     //kas ma peaks need k6igile andma kasutada ? 
+        Rect spdrect = new Rect(50, 20, 40, 20);
+        Rect rngrect = new Rect(95, 20, 40, 20);
+        Rect sellrect = new Rect(140, 20, 45, 20);
+        Rect nvmrect = new Rect(190, 20, 40, 20);
+        Rect bigrect = new Rect(20, 20, 235, 100);
+        Rect normrect = new Rect(20, 20, 235, 50);
 
-        //GUILayout.BeginHorizontal();
-        if (GUI.Button(new Rect(5, 20, 40, 20), "DPS"))
+        if (GUI.Button(dpsrect, new GUIContent("DPS", maxdpsstring)))
         {
             print("upg damage +1");
             if (haveEnoughMoney(dpscost) && (maxdps != maxuplvl))
             { 
                 dmg += 1;
                 s_money.GetComponent<moneycalc>().modifymoney(-dpscost);
-                dpscost += 10;
-                //upgrading = false;
+                dpscost += defupadd;
                 maxdps++;
-                print(maxdps);
-                print(dpscost);
             }
             else
             {
@@ -172,18 +180,15 @@ public class bullet1 : MonoBehaviour {
             }
         }
 
-        else if (GUI.Button(new Rect(50, 20, 40, 20), "SPD"))
+        else if (GUI.Button(spdrect, new GUIContent("SPD", maxspdstring)))
         {
             print("upg speed");
             if (haveEnoughMoney(spdcost) && (maxspd != maxuplvl))
             {
                 AttTime -= 0.1f;
                 s_money.GetComponent<moneycalc>().modifymoney(-spdcost);
-                spdcost += 20;
-                //upgrading = false;
+                spdcost += defupadd;
                 maxspd++;
-                print(maxspd);
-                print(spdcost);
             }
             else
             {
@@ -191,47 +196,39 @@ public class bullet1 : MonoBehaviour {
             }
         }
 
-        else if (GUI.Button(new Rect(95, 20, 40, 20), "RNG"))
+        else if (GUI.Button(rngrect, new GUIContent("RNG", maxrngstring)))
         {
             print("upg range");
             if (haveEnoughMoney(rngcost) && (maxrng != maxuplvl))
             {
                 coll.radius += 1;
                 s_money.GetComponent<moneycalc>().modifymoney(-rngcost);
-                rngcost += 20;
+                rngcost += defupadd;
                 maxrng++;
-                print(maxrng);
-                print(rngcost);
-                //upgrading = false;
             }
             else
             {
                 Debug.Log("Not enough money.");
             }
         }
-        else if (GUI.Button(new Rect(140, 20, 45, 20), "SELL"))
+        else if (GUI.Button(sellrect, new GUIContent("SELL", sellstring)))
         {
             print("sell tower");
             s_money.GetComponent<moneycalc>().modifymoney(sellprice);
             Destroy(gameObject);
-            //if (haveEnoughMoney(dpscost))
-            //{
-            //    dmg += 1;
-            //    dpscost += 10;
-            //}
-            //else
-            //{
-            //    Debug.Log("Not enough money.");
-            //}
-
             upgrading = false;
         }
-        else if (GUI.Button(new Rect(190, 20, 40, 20), "nvm"))
+        else if (GUI.Button(nvmrect, new GUIContent("nvm", canclestring)))
         {
             print("cancle upgrade");
             upgrading = false;
         }
-        //GUILayout.EndHorizontal();
+        //GUILayout.EndHorizontal();        //dat if line doe
+        if (dpsrect.Contains(Event.current.mousePosition) || spdrect.Contains(Event.current.mousePosition) || rngrect.Contains(Event.current.mousePosition) || sellrect.Contains(Event.current.mousePosition) || nvmrect.Contains(Event.current.mousePosition))
+            upgRect = bigrect;
+        else
+            upgRect = normrect;
+        GUI.Label(new Rect(20, 45, 150, 70), GUI.tooltip);
 
     }
 
@@ -253,5 +250,4 @@ public class bullet1 : MonoBehaviour {
             return false;
         }
     }
-    
 }

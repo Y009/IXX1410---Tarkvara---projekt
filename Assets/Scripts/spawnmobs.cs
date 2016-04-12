@@ -115,8 +115,8 @@ public class spawnmobs : MonoBehaviour {
              Mobmove s_mob = mob.GetComponent<Mobmove>();
              s_mob.hp = health;
              s_mob.hp = (health * difficultyMod);
-             print(health);
-             print(difficultyMod);
+             //print(health);
+             //print(difficultyMod);
              //print((int)(health * difficultyMod));
              NavMeshAgent nav_mob = mob.GetComponent<NavMeshAgent>();
              nav_mob.speed++;
