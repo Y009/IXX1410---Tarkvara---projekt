@@ -10,7 +10,8 @@ TO DO:<br>
 -....
 
 
-compiled version : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/
+compiled version : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/<br>
+neti versioon : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/web/web.html
 
 # projekt
 
