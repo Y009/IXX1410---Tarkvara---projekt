@@ -2,9 +2,11 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class spawnmobs : MonoBehaviour {
-     
-     private bool waveActive = false;
+public class spawnmobs : MonoBehaviour
+{
+
+#region initis
+    private bool waveActive = false;
 
      public GameObject monsterPrefab;
      public Transform[] spawnPointRoot;
@@ -23,9 +25,10 @@ public class spawnmobs : MonoBehaviour {
      private int waveEndBonus = 25;
 
      private GameObject s_money;
-     
-    // private GUIScript gui;
-     
+
+     // private GUIScript gui;
+#endregion
+
      public enum GameState {
          preStart,
          activeWave,

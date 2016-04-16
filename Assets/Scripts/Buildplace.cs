@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-public class Buildplace : MonoBehaviour
+public class Buildplace : MonoBehaviour, IPointerClickHandler
 {
     public GameObject towerPrefab;  //tower'i prefabrication
     private GameObject tower;
@@ -12,9 +13,6 @@ public class Buildplace : MonoBehaviour
     public GameObject money;
     private moneycalc s_moneycalc;
 
-    //raycasti jaoks
-    private float maxdist = 60;     
-    public LayerMask builplaceMask; //maskid on lihtsalt 2^9 ja 2^8 (^ - astmes)
     public LayerMask towerMask;
 
     void Awake()
@@ -24,22 +22,12 @@ public class Buildplace : MonoBehaviour
 
     void Start()
     {
-       // s_money.GetComponent<moneycalc>().modifymoney(dpscost);
         towerValue -= towerPrefab.GetComponent<bullet1>().towerprice;
     }
 
-    void FixedUpdate()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        //kontrollin kas klikitakse buildplacei peale, s.o asendus OnMouseUp'le kuna too tekitas konflikte  
-        if (Input.GetMouseButtonDown(0))
-        {   
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, maxdist, builplaceMask))
-            {
-                buildtower(hit.transform.position);
-            }
-        }
+        buildtower(eventData.pointerPress.transform.position);
     }
 
     // Kas kursori asukoha juures on tower?

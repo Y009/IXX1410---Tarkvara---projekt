@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
-public class bullet1 : MonoBehaviour {
+public class bullet1 : MonoBehaviour, IPointerClickHandler
+{
 
+#region initis
     public int towerprice = 100;
     public float sellmod = 0.75f; //mitu protsenti annan myyes tagasi
     public int maxuplvl = 5;    //mitu korda luban upgradeida yhte toweri statsi
-    private int dpscost = 75, spdcost = 75, rngcost = 75;
-    private int maxdps = 0, maxspd = 0, maxrng = 0;
-    private int defupadd = 20;
+    public int dpscost = 75, spdcost = 75, rngcost = 75;
+    public int maxdps = 0, maxspd = 0, maxrng = 0;
+    public int defupadd = 20;
 
     private float LastShotTime;
     public float AttTime;
@@ -19,13 +22,11 @@ public class bullet1 : MonoBehaviour {
     private GameObject s_money;
 
     private GameObject go_GUI;
+    public selecttower s_selecttower; 
     public GameObject bullet;
     private GameObject target;
 
     public List<GameObject> enemiesInRange;
-    //public LayerMask towerMask;
-    //public LayerMask buildMask;
-    //private float dist = 40;        //raycastiga v2ljasaadetud kiire distance
 
     private Renderer renderer;
     private Material mat;
@@ -34,6 +35,15 @@ public class bullet1 : MonoBehaviour {
     public Rect upgRect;
 
     private float UpdateTime;       //fixed updateis aeglustamiseks veelgi
+
+#endregion
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (s_selecttower.tower != this.gameObject)
+            s_selecttower.tower = this.gameObject;    //kui ei ole esimene tower, siis asendab 2ra.
+        s_selecttower.upgcanvas.GetComponent<Canvas>().enabled = true;
+    }
 
     void Awake()
     {
@@ -47,6 +57,7 @@ public class bullet1 : MonoBehaviour {
         target = null;
         s_money = GameObject.Find("money");
         go_GUI = GameObject.Find("GUI");
+        s_selecttower = go_GUI.GetComponent<selecttower>();
         UpdateTime = Time.fixedTime + 30.0f;
         upgrading = false;
         enemiesInRange = new List<GameObject>();
@@ -80,7 +91,7 @@ public class bullet1 : MonoBehaviour {
 
     void LateUpdate()
     {
-        if (upgrading)
+        if (s_selecttower.tower == this.gameObject &&  s_selecttower.upgcanvas.GetComponent<Canvas>().enabled)
             mat.SetColor("_Color", Color.green);
         else
             mat.SetColor("_Color", Color.white);
@@ -129,112 +140,65 @@ public class bullet1 : MonoBehaviour {
         }
     }
 
-    void OnGUI()
-    { 
-        if (upgrading)
-            upgRect = GUI.Window(0, upgRect, towerwindow, "Tower");
+    public void upgradingtower(int i)
+    {   
+        switch (i)
+        {
+            case 0:
+                if (haveEnoughMoney(dpscost) && (maxdps != maxuplvl))
+                {
+                    dmg += 1;
+                    s_money.GetComponent<moneycalc>().modifymoney(-dpscost);
+                    dpscost += defupadd;
+                    maxdps++;
+                }
+                break;
+            
+            case 1:
+                if (haveEnoughMoney(spdcost) && (maxspd != maxuplvl))
+                {
+                    AttTime -= 0.1f;
+                    s_money.GetComponent<moneycalc>().modifymoney(-spdcost);
+                    spdcost += defupadd;
+                    maxspd++;
+                }
+                break;
+
+            case 2:
+                if (haveEnoughMoney(rngcost) && (maxrng != maxuplvl))
+                {
+                    coll.radius += 1;
+                    s_money.GetComponent<moneycalc>().modifymoney(-rngcost);
+                    rngcost += defupadd;
+                    maxrng++;
+                }
+                break;
+
+            case 3:
+                s_money.GetComponent<moneycalc>().modifymoney(sellprice());
+                Destroy(gameObject);
+                s_selecttower.toggleupgcanvas();
+                upgrading = false;
+                break;
+            case 4:
+                s_selecttower.toggleupgcanvas();
+                upgrading = false;
+                break;
+
+        }
+
     }
 
-    void towerwindow(int ID)
+    public int sellprice()
     {
-        int sellprice = (int) (towerprice*sellmod);
+        int sellprice = (int)(towerprice * sellmod);
         if (dpscost != 75)      //myyes annan 75% algsest toweri hinnast + viimaste upgradeide raha tagasi.
-        {
-            sellprice = sellprice - defupadd + dpscost; 
-        }
-        if (spdcost !=75)
-        {
             sellprice = sellprice - defupadd + dpscost;
-        }
+        if (spdcost != 75)
+            sellprice = sellprice - defupadd + dpscost;
         if (rngcost != 75)
-        {
             sellprice = sellprice - defupadd + rngcost;
-        }
-
-        string maxdpsstring = "Upgrade damage\n Current level:" + maxdps + "\n Cost:" + dpscost;
-        string maxspdstring = "Upgrade speed\n Current level:" + maxspd + "\n Cost:" + spdcost;
-        string maxrngstring = "Upgrade range\n Current level:" + maxrng + "\n Cost:" + rngcost;
-        string sellstring = "Sell tower\n Value:" + sellprice;
-        string canclestring = "Close upgrade menu";
-        Rect dpsrect = new Rect(5, 20, 40, 20);     //kas ma peaks need k6igile andma kasutada ? 
-        Rect spdrect = new Rect(50, 20, 40, 20);
-        Rect rngrect = new Rect(95, 20, 40, 20);
-        Rect sellrect = new Rect(140, 20, 45, 20);
-        Rect nvmrect = new Rect(190, 20, 40, 20);
-        Rect bigrect = new Rect(20, 20, 235, 100);
-        Rect normrect = new Rect(20, 20, 235, 50);
-
-        if (GUI.Button(dpsrect, new GUIContent("DPS", maxdpsstring)))
-        {
-            print("upg damage +1");
-            if (haveEnoughMoney(dpscost) && (maxdps != maxuplvl))
-            { 
-                dmg += 1;
-                s_money.GetComponent<moneycalc>().modifymoney(-dpscost);
-                dpscost += defupadd;
-                maxdps++;
-            }
-            else
-            {
-                Debug.Log("Not enough money.");
-            }
-        }
-
-        else if (GUI.Button(spdrect, new GUIContent("SPD", maxspdstring)))
-        {
-            print("upg speed");
-            if (haveEnoughMoney(spdcost) && (maxspd != maxuplvl))
-            {
-                AttTime -= 0.1f;
-                s_money.GetComponent<moneycalc>().modifymoney(-spdcost);
-                spdcost += defupadd;
-                maxspd++;
-            }
-            else
-            {
-                Debug.Log("Not enough money.");
-            }
-        }
-
-        else if (GUI.Button(rngrect, new GUIContent("RNG", maxrngstring)))
-        {
-            print("upg range");
-            if (haveEnoughMoney(rngcost) && (maxrng != maxuplvl))
-            {
-                coll.radius += 1;
-                s_money.GetComponent<moneycalc>().modifymoney(-rngcost);
-                rngcost += defupadd;
-                maxrng++;
-            }
-            else
-            {
-                Debug.Log("Not enough money.");
-            }
-        }
-        else if (GUI.Button(sellrect, new GUIContent("SELL", sellstring)))
-        {
-            print("sell tower");
-            s_money.GetComponent<moneycalc>().modifymoney(sellprice);
-            Destroy(gameObject);
-            upgrading = false;
-        }
-        else if (GUI.Button(nvmrect, new GUIContent("nvm", canclestring)))
-        {
-            print("cancle upgrade");
-            upgrading = false;
-        }
-        //GUILayout.EndHorizontal();        //dat if line doe
-        if (dpsrect.Contains(Event.current.mousePosition) || spdrect.Contains(Event.current.mousePosition) || rngrect.Contains(Event.current.mousePosition) || sellrect.Contains(Event.current.mousePosition) || nvmrect.Contains(Event.current.mousePosition))
-            upgRect = bigrect;
-        else
-            upgRect = normrect;
-        GUI.Label(new Rect(20, 45, 150, 70), GUI.tooltip);
-
-    }
-
-    void upgradingtower()
-    { 
-    //panna k6ik upgradeid siia, v6ttes vatu mida upg ja cost, et oleks modulaarne
+        return sellprice;
     }
 
     private bool haveEnoughMoney(int cost)
