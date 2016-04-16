@@ -11,7 +11,8 @@ TO DO:<br>
 
 
 compiled version : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/<br>
-neti versioon : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/web/web.html
+online versioon : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/web/webvers.html<br>
+online versioon unity'st ei saa enam Unity poolt uuesndusi ning seega Chrome ega muud chromiumi peal jooksvad browserid seda ei toeta. 
 
 # projekt
 
