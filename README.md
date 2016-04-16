@@ -1,13 +1,11 @@
 TO DO:<br>
 -fixida bullet1() fixedupdate .sort 2ra<br>
--fixida 2ra see, et ei saaks l2bi menu towererid ehitada<br>
 -teha buildplaceile ka menu valik nagu toweri upgardeimisel<br>
 -piirata kaameral nooltega liikumies xz teljele<br>
 -kui esimest korda kaamerat liigutada middle mouse clickiga siis s2ilitada algne kaamera positsioon <br>
 -algsed levelid<br>
 -castle elud health scriptis v6i uus script sellele teha <br>
--GUIscript eraldi?<br>
--....
+-normaalsed tekstuurid/fancy graphics<br>
 
 
 compiled version : http://www.tud.ttu.ee/web/Henry.Juhanson/gametest/<br>
