@@ -20,12 +20,27 @@ public class selecttower : MonoBehaviour
     private clicksellbtn s_clicksellbtn;
     private clickcanclebtn s_clickcanclebtn;
 
-    //private bool canvastoggle;
+    private GameObject buildtowerobj1;
+    private GameObject buildtowerobj2;
+    private GameObject buildtowerobj3;
+    private GameObject buildtowerobj4;
+    private buildtower1 s_buildtower1;
+    //private buildtower2 s_buildtower2;
+    //private buildtower3 s_buildtower3;
+    //private buildtower4 s_buildtower4;
+    //private buildcancle s_buildcancle;
+
     public GameObject upgcanvas;
+    public GameObject upgcanvas2;
+
+    public GameObject buildplace;
+    private GameObject buildplacecheck;
+
 #endregion
 
     void Start () {
         tower = null;
+        buildplace = null;
         upgdmgobj = GameObject.Find("upgdmgobj");
         upgspdobj = GameObject.Find("upgspdobj");
         upgrngobj = GameObject.Find("upgrngobj");
@@ -37,6 +52,13 @@ public class selecttower : MonoBehaviour
         s_clicksellbtn = sellobj.GetComponent<clicksellbtn>();
         s_clickcanclebtn = cancleobj.GetComponent<clickcanclebtn>();
         upgcanvas.GetComponent<Canvas>().enabled = false;
+
+        upgcanvas2.GetComponent<Canvas>().enabled = false;
+        buildtowerobj1 = GameObject.Find("buildtowerobj");
+        buildtowerobj2 = GameObject.Find("buildtowerobj2");
+        buildtowerobj3 = GameObject.Find("buildtowerobj3");
+        buildtowerobj4 = GameObject.Find("buildtowerobj4");
+        s_buildtower1 = buildtowerobj1.GetComponent<buildtower1>();
 	}
     
     void Update()
@@ -50,11 +72,28 @@ public class selecttower : MonoBehaviour
             s_clicksellbtn.tower = tower;
             s_clickspdbtn.tower = tower;
         }
+        if (buildplace != buildplacecheck)
+        {
+            buildplacecheck = buildplace;
+            print(buildplace);
+            s_buildtower1.buildplace = buildplace;
+            s_clickcanclebtn.buildplace = buildplace;
+            //s_buildtower2.buildplace = buildplace;
+            //s_buildtower3.buildplace = buildplace;
+            //s_buildtower4.buildplace = buildplace;
+        }
+
 
     }
 
     public void toggleupgcanvas()
     {
         upgcanvas.GetComponent<Canvas>().enabled = !upgcanvas.GetComponent<Canvas>().enabled;
+    }
+
+    public void toggleupgcanvas2()
+    {
+        print("asd123");
+        upgcanvas2.GetComponent<Canvas>().enabled = !upgcanvas2.GetComponent<Canvas>().enabled;
     }
 }

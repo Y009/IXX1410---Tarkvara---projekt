@@ -62,7 +62,6 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
         upgrading = false;
         enemiesInRange = new List<GameObject>();
         LastShotTime = Time.time;
-        upgRect = new Rect(20, 20, 235, 50); //@inputmouse pos
 	}
 
     void Update()

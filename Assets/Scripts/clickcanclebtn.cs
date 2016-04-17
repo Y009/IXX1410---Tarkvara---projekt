@@ -5,6 +5,7 @@ public class clickcanclebtn : MonoBehaviour {
 
     string canclestring;
     public GameObject tower;
+    public GameObject buildplace;
     private GameObject go_textrecv;
     private upgtext s_upgtext;
     int i = 4;
@@ -19,6 +20,10 @@ public class clickcanclebtn : MonoBehaviour {
     {
         tower.GetComponent<bullet1>().upgradingtower(i);
     }
+    public void onClick2()
+    {
+        buildplace.GetComponent<Buildplace>().selected = false;
+    }
 
     public void sendtext()
     {
@@ -26,7 +31,6 @@ public class clickcanclebtn : MonoBehaviour {
         {
             canclestring = "Close upgrade menu";
             s_upgtext.text = canclestring;
-;
         }
     }
 }

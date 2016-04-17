@@ -77,6 +77,8 @@
      <Compile Include="Assets\Scripts\selecttower.cs" />
      <Compile Include="Assets\Scripts\spawnmobs.cs" />
      <Compile Include="Assets\Scripts\upgtext.cs" />
+     <Compile Include="Assets\buildtower1.cs" />
+     <Compile Include="Assets\buildtowercancle.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
