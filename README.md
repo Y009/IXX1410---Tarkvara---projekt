@@ -1,6 +1,6 @@
 TO DO:<br>
 -fixida bullet1() fixedupdate .sort 2ra<br>
--teha buildplaceile ka menu valik nagu toweri upgardeimisel<br>
+-add more towers<br>
 -piirata kaameral nooltega liikumies xz teljele<br>
 -kui esimest korda kaamerat liigutada middle mouse clickiga siis s2ilitada algne kaamera positsioon <br>
 -algsed levelid<br>
