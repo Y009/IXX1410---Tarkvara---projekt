@@ -14,6 +14,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
     public int maxdps = 0, maxspd = 0, maxrng = 0;
     public int defupadd = 20;
 
+    private bool splash = false;
     private float LastShotTime;
     public float AttTime;
     public float dmg;
@@ -58,10 +59,12 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
         s_money = GameObject.Find("money");
         go_GUI = GameObject.Find("GUI");
         s_selecttower = go_GUI.GetComponent<selecttower>();
-        UpdateTime = Time.fixedTime + 30.0f;
+        UpdateTime = Time.fixedTime + 0.3f;
         upgrading = false;
         enemiesInRange = new List<GameObject>();
         LastShotTime = Time.time;
+        if (gameObject.tag == "splashtwr")
+            splash = true;
 	}
 
     void Update()
@@ -80,6 +83,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
 
         if (target!=null)                       //kui ei ole sihtm2rki, ei lase
         {
+            gameObject.transform.rotation = Quaternion.LookRotation(target.transform.position - gameObject.transform.position);
             if(Time.time - LastShotTime > AttTime)      //kas on piisavalt aega m66dunud viimasest laskmisest
             {
                 Shoot(target.GetComponent<Collider>());
@@ -98,11 +102,14 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
 
     //void FixedUpdate()                // .Sort() on vaja ylevaadata, et null'iga t66taks korralikult / kasutada OrderBy()'d
     //{
-    //    if (Time.fixedTime >= UpdateTime)
+    //    if (!(enemiesInRange.count = 0))
     //    {
-    //        enemiesInRange.Sort();
-    //        target = enemiesInRange[0];
-    //        UpdateTime = Time.fixedTime + 30.0f;
+    //        if (Time.fixedTime >= UpdateTime)
+    //        {
+    //            enemiesInRange.Sort();
+    //            target = enemiesInRange[0];
+    //            UpdateTime = Time.fixedTime + 0.3f;
+    //        }
     //    }
     //}
 
@@ -111,6 +118,8 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
         GameObject Pew = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity); //teeb kuuli
         Pew.GetComponent<flytomob>().dmg = dmg;
         Pew.GetComponent<flytomob>().target = co.transform;
+        //if (splash)
+        //    Pew.GetComponent<flytomob>().splash = true;
     }
 
     void OnEnemyDestroy(GameObject enemy)       //v6tab listist 2ra kui sureb
@@ -185,7 +194,6 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
                 break;
 
         }
-
     }
 
     public int sellprice()

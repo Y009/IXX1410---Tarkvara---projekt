@@ -1,30 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class buildtower1 : MonoBehaviour {
+public class buildtower2 : MonoBehaviour
+{
 
-    string buildtower1strng;
+    string buildtower2strng;
     public GameObject buildplace;
     private GameObject go_textrecv;
     private upgtext s_upgtext;
+    public GameObject tower;
 
-	void Start () {
-        buildtower1strng = "Basic Tower\n Attack damage:1\n Attack spped:0.75\n Attack range:10\n Cost:100";
+    void Start()
+    {
+        buildtower2strng = "Splash Tower\n Attack damage:2\n Attack speed:0.75\n Attack range:10\n Cost:150";
         go_textrecv = GameObject.Find("upgdesc2");
         s_upgtext = go_textrecv.GetComponent<upgtext>();
-	}
-	
-	void Update () {
-        //print(buildplace);
-	}
+    }
+
     public void onClick()
     {
-        buildplace.GetComponent<Buildplace>().buildtower();
+        buildplace.GetComponent<Buildplace>().buildtower(tower);
     }
 
     public void sendtext()
     {
         if (buildplace)
-            s_upgtext.text = buildtower1strng;
+            s_upgtext.text = buildtower2strng;
     }
 }

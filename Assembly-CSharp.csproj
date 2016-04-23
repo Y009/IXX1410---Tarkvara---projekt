@@ -49,10 +49,12 @@
      <Compile Include="Assets\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Mobmove.cs" />
-     <Compile Include="Assets\Scripts\attack.cs" />
      <Compile Include="Assets\Scripts\buidmenu.cs" />
      <Compile Include="Assets\Scripts\build_map1.cs" />
      <Compile Include="Assets\Scripts\build_map11.cs" />
+     <Compile Include="Assets\Scripts\buildtower1.cs" />
+     <Compile Include="Assets\Scripts\buildtower2.cs" />
+     <Compile Include="Assets\Scripts\buildtowercancle.cs" />
      <Compile Include="Assets\Scripts\bullet1.cs" />
      <Compile Include="Assets\Scripts\changerectsize.cs" />
      <Compile Include="Assets\Scripts\clickcanclebtn.cs" />
@@ -67,18 +69,17 @@
      <Compile Include="Assets\Scripts\flytomob.cs" />
      <Compile Include="Assets\Scripts\gotoeditor.cs" />
      <Compile Include="Assets\Scripts\guiscript.cs" />
-     <Compile Include="Assets\Scripts\guiscripts.cs" />
      <Compile Include="Assets\Scripts\menu1.cs" />
      <Compile Include="Assets\Scripts\money.cs" />
      <Compile Include="Assets\Scripts\moneycalc.cs" />
+     <Compile Include="Assets\Scripts\nextlvltimer.cs" />
      <Compile Include="Assets\Scripts\pausemenu.cs" />
      <Compile Include="Assets\Scripts\playgame.cs" />
      <Compile Include="Assets\Scripts\scorecalc.cs" />
      <Compile Include="Assets\Scripts\selecttower.cs" />
      <Compile Include="Assets\Scripts\spawnmobs.cs" />
      <Compile Include="Assets\Scripts\upgtext.cs" />
-     <Compile Include="Assets\buildtower1.cs" />
-     <Compile Include="Assets\buildtowercancle.cs" />
+     <Compile Include="Assets\buildtower3.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

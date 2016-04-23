@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 
 public class Buildplace : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject towerPrefab;  //tower'i prefabrication
     private GameObject tower;
 
     private int towerValue;
@@ -33,7 +32,6 @@ public class Buildplace : MonoBehaviour, IPointerClickHandler
 
     void Start()
     {
-        towerValue -= towerPrefab.GetComponent<bullet1>().towerprice;
         go_GUI = GameObject.Find("GUI");
         s_selecttower = go_GUI.GetComponent<selecttower>();
     }
@@ -45,7 +43,6 @@ public class Buildplace : MonoBehaviour, IPointerClickHandler
         s_selecttower.upgcanvas2.GetComponent<Canvas>().enabled = true;
         selected = true;
         clickloc = eventData.pointerPress.transform.position;
-       // buildtower(eventData.pointerPress.transform.position);
     }
 
     void LateUpdate()
@@ -83,14 +80,15 @@ public class Buildplace : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void buildtower()
+    public void buildtower(GameObject tower)
     {
+        towerValue -= tower.GetComponent<bullet1>().towerprice;
         if (haveEnoughMoney() && canPlaceTower())
         {
-            tower = (GameObject)
-            Instantiate(towerPrefab, clickloc + Vector3.up, Quaternion.identity);
+            Instantiate(tower, clickloc + Vector3.up, Quaternion.identity);
 
             s_moneycalc.modifymoney(towerValue);
         }
     }
+
 }

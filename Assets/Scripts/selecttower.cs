@@ -25,7 +25,7 @@ public class selecttower : MonoBehaviour
     private GameObject buildtowerobj3;
     private GameObject buildtowerobj4;
     private buildtower1 s_buildtower1;
-    //private buildtower2 s_buildtower2;
+    private buildtower2 s_buildtower2;    //lisa towerite jaoks
     //private buildtower3 s_buildtower3;
     //private buildtower4 s_buildtower4;
     //private buildcancle s_buildcancle;
@@ -55,10 +55,11 @@ public class selecttower : MonoBehaviour
 
         upgcanvas2.GetComponent<Canvas>().enabled = false;
         buildtowerobj1 = GameObject.Find("buildtowerobj");
-        buildtowerobj2 = GameObject.Find("buildtowerobj2");
-        buildtowerobj3 = GameObject.Find("buildtowerobj3");
-        buildtowerobj4 = GameObject.Find("buildtowerobj4");
+        buildtowerobj2 = GameObject.Find("buildtower2obj");
+        buildtowerobj3 = GameObject.Find("buildtower3obj");
+        buildtowerobj4 = GameObject.Find("buildtower4obj");
         s_buildtower1 = buildtowerobj1.GetComponent<buildtower1>();
+        s_buildtower2 = buildtowerobj2.GetComponent<buildtower2>();
 	}
     
     void Update()
@@ -75,11 +76,10 @@ public class selecttower : MonoBehaviour
         if (buildplace != buildplacecheck)
         {
             buildplacecheck = buildplace;
-            print(buildplace);
             s_buildtower1.buildplace = buildplace;
             s_clickcanclebtn.buildplace = buildplace;
-            //s_buildtower2.buildplace = buildplace;
-            //s_buildtower3.buildplace = buildplace;
+            s_buildtower2.buildplace = buildplace;    
+            //s_buildtower3.buildplace = buildplace;        //need on lisa towerite jaoks
             //s_buildtower4.buildplace = buildplace;
         }
 
@@ -93,7 +93,6 @@ public class selecttower : MonoBehaviour
 
     public void toggleupgcanvas2()
     {
-        print("asd123");
         upgcanvas2.GetComponent<Canvas>().enabled = !upgcanvas2.GetComponent<Canvas>().enabled;
     }
 }

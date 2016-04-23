@@ -13,11 +13,6 @@ public class Mobmove : MonoBehaviour {
             GetComponent<NavMeshAgent>().destination = castle.transform.position;
         hpmax = hp;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void OnTriggerEnter(Collider co)
     {
@@ -33,11 +28,3 @@ public class Mobmove : MonoBehaviour {
         return hpmax - hp;
     }
 }
-
-
-
-
-
-
-
-
