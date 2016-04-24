@@ -11,7 +11,7 @@ public class buildtower3 : MonoBehaviour {
 
     void Start()
     {
-        buildtower3strng = "Ice Tower\n Attack damage:0.25\n Attack speed:0.75\n Attack range:10\n Cost:150";
+        buildtower3strng = "Ice Tower\n Attack damage:0.25\n Attack speed:1.5\n Attack range:10\n Cost:150\n Special:Slows target";
         go_textrecv = GameObject.Find("upgdesc2");
         s_upgtext = go_textrecv.GetComponent<upgtext>();
     }

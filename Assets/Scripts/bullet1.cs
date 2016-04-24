@@ -14,14 +14,13 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
     public int maxdps = 0, maxspd = 0, maxrng = 0;
     public int defupadd = 20;
 
-    private bool splash = false;
     private float LastShotTime;
     public float AttTime;
     public float dmg;
     private SphereCollider coll;
+    public bool ice;
 
     private GameObject s_money;
-
     private GameObject go_GUI;
     public selecttower s_selecttower; 
     public GameObject bullet;
@@ -63,15 +62,13 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
         upgrading = false;
         enemiesInRange = new List<GameObject>();
         LastShotTime = Time.time;
-        if (gameObject.tag == "splashtwr")
-            splash = true;
 	}
 
     void Update()
     {
         target = null;
         float minHpEnemy =int.MaxValue;                   //initsialiseerib lihtsalt int'ga, aga kuna edasi otsib v2iksemaid siis max int v22rtusega.
-        foreach (GameObject enemy in enemiesInRange)    //targetib alati v2himate eludega vastast
+        foreach (GameObject enemy in enemiesInRange)      //targetib alati v2himate eludega vastast
         {
             float hpdiff = enemy.GetComponent<Mobmove>().hpdiff();
             if (hpdiff < minHpEnemy)
@@ -84,6 +81,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
         if (target!=null)                       //kui ei ole sihtm2rki, ei lase
         {
             gameObject.transform.rotation = Quaternion.LookRotation(target.transform.position - gameObject.transform.position);
+            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             if(Time.time - LastShotTime > AttTime)      //kas on piisavalt aega m66dunud viimasest laskmisest
             {
                 Shoot(target.GetComponent<Collider>());
@@ -96,6 +94,8 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
     {
         if (s_selecttower.tower == this.gameObject &&  s_selecttower.upgcanvas.GetComponent<Canvas>().enabled)
             mat.SetColor("_Color", Color.green);
+        else if(ice)
+            mat.SetColor("_Color", Color.blue);
         else
             mat.SetColor("_Color", Color.white);
     }
@@ -118,8 +118,6 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
         GameObject Pew = (GameObject)Instantiate(bullet, transform.position, Quaternion.identity); //teeb kuuli
         Pew.GetComponent<flytomob>().dmg = dmg;
         Pew.GetComponent<flytomob>().target = co.transform;
-        //if (splash)
-        //    Pew.GetComponent<flytomob>().splash = true;
     }
 
     void OnEnemyDestroy(GameObject enemy)       //v6tab listist 2ra kui sureb

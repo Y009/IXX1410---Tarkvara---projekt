@@ -26,7 +26,7 @@ public class selecttower : MonoBehaviour
     private GameObject buildtowerobj4;
     private buildtower1 s_buildtower1;
     private buildtower2 s_buildtower2;    //lisa towerite jaoks
-    //private buildtower3 s_buildtower3;
+    private buildtower3 s_buildtower3;
     //private buildtower4 s_buildtower4;
     //private buildcancle s_buildcancle;
 
@@ -60,6 +60,7 @@ public class selecttower : MonoBehaviour
         buildtowerobj4 = GameObject.Find("buildtower4obj");
         s_buildtower1 = buildtowerobj1.GetComponent<buildtower1>();
         s_buildtower2 = buildtowerobj2.GetComponent<buildtower2>();
+        s_buildtower3 = buildtowerobj3.GetComponent<buildtower3>();
 	}
     
     void Update()
@@ -79,7 +80,7 @@ public class selecttower : MonoBehaviour
             s_buildtower1.buildplace = buildplace;
             s_clickcanclebtn.buildplace = buildplace;
             s_buildtower2.buildplace = buildplace;    
-            //s_buildtower3.buildplace = buildplace;        //need on lisa towerite jaoks
+            s_buildtower3.buildplace = buildplace;        //need on lisa towerite jaoks
             //s_buildtower4.buildplace = buildplace;
         }
 

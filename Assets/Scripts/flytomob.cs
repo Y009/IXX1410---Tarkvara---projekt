@@ -7,10 +7,10 @@ public class flytomob : MonoBehaviour {
     public float dmg;
     public float speed;
     public bool splash;
+    public bool ice;
     public float radius = 4;
     public LayerMask enemylayer;
     private Vector3 splashtarget;
-    private float flyTime = 1.0F;
     private Vector3 dir;
     private Rigidbody rigid;
 
@@ -26,26 +26,24 @@ public class flytomob : MonoBehaviour {
     }
 
 	void FixedUpdate () {
-        if(target)
-            gameObject.transform.rotation = Quaternion.LookRotation(target.position - gameObject.transform.position);
+        //if(target)
+        //    gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, 0.01f);
 
         if (target && !splash)
         {
-            Vector3 dir = target.position - transform.position;     //j2llitab vaenlast
+            dir = target.position - transform.position;     //j2llitab vaenlast
             rigid.velocity = dir.normalized * 10;
         }
-        else if (splash)
+        else if (splash && transform.position.y > 8)
         {                               //mingi normaalne paraboolne trajektoor teha...
-            if (transform.position.y > 8)
-            {
-                dir = dir*0.95f + Vector3.down*7;
-                rigid.velocity =  dir;
-            }
+
+            dir = dir*0.95f + Vector3.down*7;
+            rigid.velocity =  dir;
         }
         else if (!target)
             Destroy(gameObject);
 
-        if (this.transform.position.y < 0)
+        if (this.transform.position.y < 0 && splash)
         {
             splashattack();
         }
@@ -57,7 +55,6 @@ public class flytomob : MonoBehaviour {
         
         foreach (Collider enemy in hitColliders)
         {
-            print(enemy);
             enemy.GetComponentInChildren<Health>().decrease(dmg);
         }
 
@@ -66,11 +63,17 @@ public class flytomob : MonoBehaviour {
 
     void OnTriggerEnter(Collider co)
     {
-        if(!splash)
+        if(!splash && co.transform == target)
         {
             Health health = co.GetComponentInChildren<Health>();    //v6tan mobi elud
-            if (health)
+            if (ice)
             {
+                co.GetComponent<Mobmove>().iceslow = true; // mul ei ole 6rna aimugi miks ta siin nullrefrenci annab,
+                                                           //kui sellega t66tab ilusti, ja ilma ei t66ta yldse
+                print(co.GetComponent<Mobmove>().iceslow);
+            }
+            if (health)
+            { 
                 health.decrease(dmg);
                 Destroy(gameObject);
             }
