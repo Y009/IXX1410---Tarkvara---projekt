@@ -107,9 +107,9 @@ public class spawnmobs : MonoBehaviour
     void startNewWave()
     {
         state = GameState.activeWave;
-        StartCoroutine(StartMission(1.5f));
-        waveLevel++;
         setNextWave();
+        waveLevel++;
+        StartCoroutine(StartMission(1.5f));
     }
 
     IEnumerator StartMission(float seconds)
@@ -123,6 +123,7 @@ public class spawnmobs : MonoBehaviour
 
     void setNextWave()
     {
+        //s_gui.waveinfo(0, waveLevel, health, immunelevel, enemyAmount);
         if (waveLevel % 6 == 0)
         {
             health += 7;
@@ -136,6 +137,7 @@ public class spawnmobs : MonoBehaviour
         else
             health += 5;
 
+        s_gui.waveinfo(1, waveLevel, health, immunelevel, enemyAmount);
     }
 
     IEnumerator EnemySpawnerRoutine(float spawnIntervall, int enemyAmount)
