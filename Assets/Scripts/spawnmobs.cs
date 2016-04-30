@@ -30,7 +30,7 @@ public class spawnmobs : MonoBehaviour
     private GameObject castle;
     private GameObject go_timetilnextlvl;
     private nextlvltimer s_nextlvltimer;
-    private GameObject go_startlvlbtn;
+    private GameObject go_startwave;
     public GameObject go_GUI;
     private guiscript s_gui;
     private Text btntext;
@@ -58,10 +58,10 @@ public class spawnmobs : MonoBehaviour
         s_money = GameObject.Find("money");
         go_timetilnextlvl = GameObject.Find("timetilnextlvl");
         s_nextlvltimer = go_timetilnextlvl.GetComponent<nextlvltimer>();
-        go_startlvlbtn = GameObject.Find("startlvlbtn");
+        go_startwave = GameObject.Find("startwave");
         enemies = new ArrayList();
         castle = GameObject.FindGameObjectWithTag("castle");
-        btntext = go_startlvlbtn.GetComponent<Button>().GetComponentInChildren<Text>();
+        btntext = go_startwave.GetComponent<Button>().GetComponentInChildren<Text>();
     }
 
     void Update()
@@ -77,7 +77,7 @@ public class spawnmobs : MonoBehaviour
                 {
                     s_gui.startWave = false;
                     btntext.text = lvlactivestring;
-                    go_startlvlbtn.GetComponent<Button>().enabled = false ;
+                    go_startwave.GetComponent<Button>().enabled = false ;
                     startNewWave();
                 }
                 break;
@@ -107,9 +107,9 @@ public class spawnmobs : MonoBehaviour
     void startNewWave()
     {
         state = GameState.activeWave;
-        setNextWave();
-        waveLevel++;
         StartCoroutine(StartMission(1.5f));
+        waveLevel++;
+        setNextWave();
     }
 
     IEnumerator StartMission(float seconds)
@@ -123,7 +123,6 @@ public class spawnmobs : MonoBehaviour
 
     void setNextWave()
     {
-        //s_gui.waveinfo(0, waveLevel, health, immunelevel, enemyAmount);
         if (waveLevel % 6 == 0)
         {
             health += 7;
@@ -137,7 +136,6 @@ public class spawnmobs : MonoBehaviour
         else
             health += 5;
 
-        s_gui.waveinfo(1, waveLevel, health, immunelevel, enemyAmount);
     }
 
     IEnumerator EnemySpawnerRoutine(float spawnIntervall, int enemyAmount)
@@ -168,7 +166,7 @@ public class spawnmobs : MonoBehaviour
     void finishWave()
     {
         print("finished wave");
-        go_startlvlbtn.GetComponent<Button>().enabled = true; ;
+        go_startwave.GetComponent<Button>().enabled = true; ;
         btntext.text = lvlstartstring;
         s_nextlvltimer.settime();
         waveActive = false;

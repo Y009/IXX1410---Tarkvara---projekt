@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class upgtext : MonoBehaviour {
 
     public string text;
-    private Text upgdesc;
+    Text upgdesc;
 
 	void Start () {
         upgdesc = GetComponent<Text>();

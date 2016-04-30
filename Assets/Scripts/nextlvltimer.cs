@@ -10,7 +10,7 @@ public class nextlvltimer : MonoBehaviour {
     public float countdowntime;
 
     private string lvltimestring = "Next Lvl In:";
-    private string lvlinfstring = "Next Lvl In: ∞";
+    private string lvlinfstring = "Next Lvl In: -";
 
     void Awake()
     {

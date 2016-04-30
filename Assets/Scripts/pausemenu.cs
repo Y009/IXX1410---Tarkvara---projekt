@@ -7,6 +7,7 @@ public class pausemenu : MonoBehaviour
     //buggine pause menu
     public AudioClip playsnd;
     bool paused = false;
+	public GUISkin GUI_1;
 
     void FixedUpdate()
     {
@@ -16,15 +17,17 @@ public class pausemenu : MonoBehaviour
 
     void OnGUI()
     {
+		GUI.skin = GUI_1;
         if (paused)
         {
-            GUILayout.Label("Take 5 everybody!");
-            if (GUILayout.Button("UNPAUSE"))
+			GUI.Box(new Rect(0, 0, 140, 180), "");
+            GUI.Label(new Rect(20, 10, 100, 30), "Game is paused");
+            if (GUI.Button(new Rect (10,45,120,37.5f), "UNPAUSE"))
             {
                 paused = togglePause();
                 AudioSource.PlayClipAtPoint(playsnd, new Vector3(5, 1, 2));
             }
-            else if (GUILayout.Button("Main Menu"))
+            else if (GUI.Button(new Rect (10,82.5f,120,37.5f), "MAIN MENU"))
                 {
                     SceneManager.LoadScene("scene3", LoadSceneMode.Single);
                     System.Threading.Thread.Sleep(250);         //.sleep ei ole v2ga 6ige kasutada, vaja mingi aeg v2lja vahetada
@@ -33,7 +36,7 @@ public class pausemenu : MonoBehaviour
                     paused = togglePause();
                     SceneManager.SetActiveScene(SceneManager.GetActiveScene());
                 }
-            else if (GUILayout.Button("EXIT"))
+            else if (GUI.Button(new Rect (10,120,120,37.5f), "EXIT"))
                 {
                     Application.Quit();
                 }
