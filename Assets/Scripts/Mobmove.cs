@@ -16,11 +16,17 @@ public class Mobmove : MonoBehaviour {
     private Material mat;
     private NavMeshAgent nav_mob;
 
+    private int normspeed;
+    public int slowspeed = 2;
+    public float slowedtime = 1.5f;
+    public bool immune;
+
     void Awake()
     {
         nav_mob = GetComponent<NavMeshAgent>();
         renderer = gameObject.GetComponent<Renderer>();
         mat = renderer.material;
+        normspeed = (int) nav_mob.speed;
     }
 
 	void Start () {
@@ -32,24 +38,27 @@ public class Mobmove : MonoBehaviour {
 
     void Update()
     {
-        if (iceslow)
-        {
-            hittime = Time.time;
-            iceslow = false;
-            StartCoroutine("slowed1");
+        if (iceslow && !immune)
+            slowed1();
+    }
+
+    void FixedUpdate()
+    {
+        if (slow && hittime + slowedtime < Time.time)
+        { 
+            mat.SetColor("_Color", Color.white);
+            nav_mob.speed = normspeed;
+            slow = false;
         }
     }
 
-    IEnumerator slowed1()
+    void slowed1()
     {
-        nav_mob.speed = 2;
+        iceslow = false;
+        slow = true;
+        hittime = Time.time;
+        nav_mob.speed = slowspeed;
         mat.SetColor("_Color", Color.blue);
-        yield return new WaitForSeconds(1.5f);
-        if (hittime + 1.5f < Time.time)
-        { 
-            mat.SetColor("_Color", Color.white);
-            nav_mob.speed = 5;
-        }
     }
 
     void OnTriggerEnter(Collider co)

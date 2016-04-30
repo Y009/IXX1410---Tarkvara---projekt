@@ -37,6 +37,7 @@ public class spawnmobs : MonoBehaviour
 
     private string lvlactivestring = "Level Active";
     private string lvlstartstring = "Start Now";
+    private bool immunelevel = false;
     #endregion
 
     public enum GameState
@@ -122,15 +123,19 @@ public class spawnmobs : MonoBehaviour
 
     void setNextWave()
     {
-        if (waveLevel % 5 == 0)
+        if (waveLevel % 6 == 0)
         {
             health += 7;
             velocity++;
         }
+        else if (waveLevel % 5 == 0)
+        {
+            immunelevel = true;
+            health += 2;
+        }
         else
             health += 5;
 
-        print("made it to setnextwave");
     }
 
     IEnumerator EnemySpawnerRoutine(float spawnIntervall, int enemyAmount)
@@ -150,9 +155,9 @@ public class spawnmobs : MonoBehaviour
             GameObject mob = (GameObject)Instantiate(monsterPrefab, transform.position, Quaternion.identity);
             Mobmove s_mob = mob.GetComponent<Mobmove>();
             s_mob.hp = health;
-            // s_mob.hp = (health * difficultyMod);
             NavMeshAgent nav_mob = mob.GetComponent<NavMeshAgent>();
             nav_mob.speed = velocity;
+            s_mob.immune = immunelevel;
             enemyCount++;
             enemies.Add(mob);
         }
@@ -166,8 +171,9 @@ public class spawnmobs : MonoBehaviour
         s_nextlvltimer.settime();
         waveActive = false;
         s_gui.waveActive = false;
-        s_gui.waveEnd = true; //kus ma settime'i callin
+        s_gui.waveEnd = true;
         s_gui.check = true;
+        immunelevel = false;
         s_money.GetComponent<moneycalc>().modifymoney(waveEndBonus);
         state = GameState.preStart;
     }

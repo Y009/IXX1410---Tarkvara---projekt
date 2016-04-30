@@ -25,10 +25,8 @@ public class flytomob : MonoBehaviour {
         }
     }
 
-	void FixedUpdate () {
-        //if(target)
-        //    gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, target.rotation, 0.01f);
-
+	void FixedUpdate () 
+    {
         if (target && !splash)
         {
             dir = target.position - transform.position;     //j2llitab vaenlast
@@ -70,7 +68,6 @@ public class flytomob : MonoBehaviour {
             {
                 co.GetComponent<Mobmove>().iceslow = true; // mul ei ole 6rna aimugi miks ta siin nullrefrenci annab,
                                                            //kui sellega t66tab ilusti, ja ilma ei t66ta yldse
-                print(co.GetComponent<Mobmove>().iceslow);
             }
             if (health)
             { 
