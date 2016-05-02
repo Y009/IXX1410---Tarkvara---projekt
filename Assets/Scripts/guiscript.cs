@@ -35,11 +35,11 @@ public class guiscript : MonoBehaviour {
     public void waveinfo(int i, int level, float hp, bool immune, int enemyAmount)
     {
         string lvlstring = null;
-        lvlstring = "Current level:";
-        lvlstring += level + ". " +enemyAmount;
+        lvlstring = "Current level: ";
+        lvlstring += level + "\n" +enemyAmount;
         if (immune)
             lvlstring += " immune";
-        lvlstring += " monsters with " + hp + " health.";
+        lvlstring += " monsters with " + hp + " health";
         if (i == 1) 
             lvlstring1 = lvlstring;
         
