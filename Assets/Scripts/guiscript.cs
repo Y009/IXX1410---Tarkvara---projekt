@@ -44,9 +44,8 @@ public class guiscript : MonoBehaviour {
             lvlstring1 = lvlstring;
         
         leveltext.text = lvlstring1;
-        leveltext.CrossFadeAlpha(1.0f, 0, false);
-        leveltext.CrossFadeAlpha(0.0f, 10, false);
-        //else if (i == 0)
+        StartCoroutine(fadetext());
+        //else if (i == 0)       // i==0 pidi olema next lvl'i n2itamiseks.
         //{
         //    lvlstring = "Current level:";
         //     else if (i == 0)
@@ -76,5 +75,12 @@ public class guiscript : MonoBehaviour {
     {
         startWave = true;
         check = false;
+    }
+
+    IEnumerator fadetext()
+    {
+        leveltext.CrossFadeAlpha(1.0f, 0, false);
+        yield return new WaitForSeconds(5);
+        leveltext.CrossFadeAlpha(0.0f, 2, false);
     }
 }

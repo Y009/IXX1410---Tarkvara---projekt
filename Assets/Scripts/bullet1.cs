@@ -40,9 +40,12 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (s_selecttower.tower != this.gameObject)
-            s_selecttower.tower = this.gameObject;    //kui ei ole esimene tower, siis asendab 2ra.
-        s_selecttower.upgcanvas.GetComponent<Canvas>().enabled = true;
+        if (Time.timeScale != 0)
+        {
+            if (s_selecttower.tower != this.gameObject)
+                s_selecttower.tower = this.gameObject;    //kui ei ole esimene tower, siis asendab 2ra.
+            s_selecttower.upgcanvas.GetComponent<Canvas>().enabled = true;
+        }
     }
 
     void Awake()

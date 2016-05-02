@@ -38,11 +38,14 @@ public class Buildplace : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (s_selecttower.buildplace != this.gameObject)
-            s_selecttower.buildplace = this.gameObject;
-        s_selecttower.upgcanvas2.GetComponent<Canvas>().enabled = true;
-        selected = true;
-        clickloc = eventData.pointerPress.transform.position;
+        if (Time.timeScale != 0)
+        {
+            if (s_selecttower.buildplace != this.gameObject)
+                s_selecttower.buildplace = this.gameObject;
+            s_selecttower.upgcanvas2.GetComponent<Canvas>().enabled = true;
+            selected = true;
+            clickloc = eventData.pointerPress.transform.position;
+        }
     }
 
     void LateUpdate()
