@@ -51,16 +51,16 @@ public class spawnmobs : MonoBehaviour
     void Awake()
     {
         s_gui = go_GUI.GetComponent<guiscript>();
+        s_money = GameObject.Find("money");
+        go_timetilnextlvl = GameObject.Find("timetilnextlvl");
+        go_startwave = GameObject.Find("startwave");
+        castle = GameObject.FindGameObjectWithTag("castle");
     }
 
     void Start()
     {
-        s_money = GameObject.Find("money");
-        go_timetilnextlvl = GameObject.Find("timetilnextlvl");
         s_nextlvltimer = go_timetilnextlvl.GetComponent<nextlvltimer>();
-        go_startwave = GameObject.Find("startwave");
         enemies = new ArrayList();
-        castle = GameObject.FindGameObjectWithTag("castle");
         btntext = go_startwave.GetComponent<Button>().GetComponentInChildren<Text>();
     }
 
@@ -137,7 +137,7 @@ public class spawnmobs : MonoBehaviour
         else
             health += 5;
 
-        s_gui.waveinfo(1, waveLevel, health, immunelevel, enemyAmount);
+        s_gui.waveinfo(waveLevel, health, immunelevel, enemyAmount);
     }
 
     IEnumerator EnemySpawnerRoutine(float spawnIntervall, int enemyAmount)

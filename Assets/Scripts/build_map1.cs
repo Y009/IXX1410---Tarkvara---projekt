@@ -42,7 +42,7 @@ public class build_map1 : MonoBehaviour
                 GameObject Buildplace = (GameObject)Instantiate(uusklots);
                 Buildplace.transform.position = isempty + new Vector3(0, -0.5F, 0);
             }
-            if ((check == 2) && checkIfPosEmpty(isempty) && GameObject.Find("Castle(Clone)") == null)
+            if ((check == 2) && checkIfPosEmpty(isempty) && GameObject.FindWithTag("castle") == null)
             {
                 GameObject Castle = (GameObject)Instantiate(castle);
                 Castle.transform.position = isempty + new Vector3(0, -0.5F, 0);
@@ -53,7 +53,6 @@ public class build_map1 : MonoBehaviour
 
     bool checkIfPosEmpty(Vector3 targetPos) //et ei paneks kaste yksteise sisse, mis v6tab jube palju m2lu jube kiiresti...
     {
-        //Vector3 CheckPos = targetPos;
         targetPos.y = 1;
         if (Physics.CheckSphere(targetPos, 0.1F))
             return false;

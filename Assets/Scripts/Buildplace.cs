@@ -27,13 +27,13 @@ public class Buildplace : MonoBehaviour, IPointerClickHandler
     {
         s_moneycalc = money.GetComponent<moneycalc>();
         renderer = gameObject.GetComponent<Renderer>();
-        mat = renderer.material;
+        go_GUI = GameObject.Find("GUI");
+        s_selecttower = go_GUI.GetComponent<selecttower>();
     }
 
     void Start()
     {
-        go_GUI = GameObject.Find("GUI");
-        s_selecttower = go_GUI.GetComponent<selecttower>();
+        mat = renderer.material;
     }
 
     public void OnPointerClick(PointerEventData eventData)

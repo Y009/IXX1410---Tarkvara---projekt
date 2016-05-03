@@ -18,10 +18,10 @@ public class flytomob : MonoBehaviour {
     {
         rigid = this.GetComponent<Rigidbody>();
         if (splash == true)
-        { 
+        {
             splashtarget = target.position;
             dir = splashtarget - transform.position + Vector3.up * 10;
-            this.GetComponent<Rigidbody>().velocity = dir.normalized * 30;
+            this.GetComponent<Rigidbody>().velocity = dir.normalized * 20;
         }
     }
 
@@ -32,13 +32,13 @@ public class flytomob : MonoBehaviour {
             dir = target.position - transform.position;     //j2llitab vaenlast
             rigid.velocity = dir.normalized * 10;
         }
-        else if (splash && transform.position.y > 8)
-        {                               //mingi normaalne paraboolne trajektoor teha...
-
-            dir = dir*0.95f + Vector3.down*7;
-            rigid.velocity =  dir;
+        else if (splash && transform.position.y > 5)
+        {
+            dir.y -= 0.005f;
+            dir = dir + Vector3.down*2;
+            rigid.velocity = dir;
         }
-        else if (!target)
+        else if (!target && !splash)
             Destroy(gameObject);
 
         if (this.transform.position.y < 0 && splash)
@@ -66,8 +66,7 @@ public class flytomob : MonoBehaviour {
             Health health = co.GetComponentInChildren<Health>();    //v6tan mobi elud
             if (ice)
             {
-                co.GetComponent<Mobmove>().iceslow = true; // mul ei ole 6rna aimugi miks ta siin nullrefrenci annab,
-                                                           //kui sellega t66tab ilusti, ja ilma ei t66ta yldse
+                co.GetComponent<Mobmove>().iceslow = true;                                                          
             }
             if (health)
             { 

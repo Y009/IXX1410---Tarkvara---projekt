@@ -52,14 +52,14 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
     {
         renderer = gameObject.GetComponent<Renderer>();
         mat = renderer.material;
+        s_money = GameObject.Find("money");
+        go_GUI = GameObject.Find("GUI");
     }
 
 	void Start () 
     {
         coll = this.gameObject.GetComponent<SphereCollider>();
         target = null;
-        s_money = GameObject.Find("money");
-        go_GUI = GameObject.Find("GUI");
         s_selecttower = go_GUI.GetComponent<selecttower>();
         UpdateTime = Time.fixedTime + 0.3f;
         upgrading = false;

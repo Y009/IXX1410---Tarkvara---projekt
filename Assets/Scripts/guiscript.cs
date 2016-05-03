@@ -21,6 +21,7 @@ public class guiscript : MonoBehaviour {
         go_spawn = GameObject.Find("spawn");
         go_leveltext = GameObject.Find("wavetext");
         leveltext = go_leveltext.GetComponent<Text>();
+        s_spawnmobs = go_spawn.GetComponent<spawnmobs>();
     }
 
     void Start()
@@ -28,11 +29,10 @@ public class guiscript : MonoBehaviour {
         waveEnd = false;
         startWave = false;
         check = true;
-        s_spawnmobs = go_spawn.GetComponent<spawnmobs>();
         leveltext.CrossFadeAlpha(0.0f, 1, false);
     }
 
-    public void waveinfo(int i, int level, float hp, bool immune, int enemyAmount)
+    public void waveinfo(int level, float hp, bool immune, int enemyAmount)
     {
         string lvlstring = null;
         lvlstring = "Current level: ";
@@ -40,35 +40,10 @@ public class guiscript : MonoBehaviour {
         if (immune)
             lvlstring += " immune";
         lvlstring += " monsters with " + hp + " health";
-        if (i == 1) 
-            lvlstring1 = lvlstring;
+        lvlstring1 = lvlstring;
         
         leveltext.text = lvlstring1;
         StartCoroutine(fadetext());
-        //else if (i == 0)       // i==0 pidi olema next lvl'i n2itamiseks.
-        //{
-        //    lvlstring = "Current level:";
-        //     else if (i == 0)
-        //         lvlstring = "Next level:";
-        //    lvlstring += level + ". " + enemyAmount;
-        //    if (immune)
-        //        lvlstring += " immune";
-        //    lvlstring += " monsters with " + hp + " health.";
-        //    if (i == 1)
-        //        lvlstring2 = lvlstring;
-        //    else if (i == 0)
-        //    {
-        //    print(lvlstring2);
-        //    print(i);
-        //    print(level);
-        //    print(hp);
-        //    print(immune);
-        //    print(enemyAmount);
-        //    print("////////////////////////");
-        //       print(lvlstring2);
-        //       lvlstring1 = lvlstring;
-        //    leveltext.text = lvlstring1;
-        //}
     }
 
     public void toggle()

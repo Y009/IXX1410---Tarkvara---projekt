@@ -38,14 +38,22 @@ public class selecttower : MonoBehaviour
 
 #endregion
 
-    void Start () {
-        tower = null;
-        buildplace = null;
+    void Awake()
+    { 
         upgdmgobj = GameObject.Find("upgdmgobj");
         upgspdobj = GameObject.Find("upgspdobj");
         upgrngobj = GameObject.Find("upgrngobj");
         sellobj = GameObject.Find("sellobj");
         cancleobj = GameObject.Find("cancleobj");
+    
+        buildtowerobj1 = GameObject.Find("buildtowerobj");
+        buildtowerobj2 = GameObject.Find("buildtower2obj");
+        buildtowerobj3 = GameObject.Find("buildtower3obj");
+        buildtowerobj4 = GameObject.Find("buildtower4obj");
+    }
+    void Start () {
+        tower = null;
+        buildplace = null;
         s_clickdmgbtn = upgdmgobj.GetComponent<clickdmgbtn>();
         s_clickspdbtn = upgspdobj.GetComponent<clickspdbtn>();
         s_clickrngbtn = upgrngobj.GetComponent<clickrngbtn>();
@@ -54,10 +62,6 @@ public class selecttower : MonoBehaviour
         upgcanvas.GetComponent<Canvas>().enabled = false;
 
         upgcanvas2.GetComponent<Canvas>().enabled = false;
-        buildtowerobj1 = GameObject.Find("buildtowerobj");
-        buildtowerobj2 = GameObject.Find("buildtower2obj");
-        buildtowerobj3 = GameObject.Find("buildtower3obj");
-        buildtowerobj4 = GameObject.Find("buildtower4obj");
         s_buildtower1 = buildtowerobj1.GetComponent<buildtower1>();
         s_buildtower2 = buildtowerobj2.GetComponent<buildtower2>();
         s_buildtower3 = buildtowerobj3.GetComponent<buildtower3>();
