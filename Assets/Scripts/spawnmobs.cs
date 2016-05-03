@@ -127,7 +127,6 @@ public class spawnmobs : MonoBehaviour
         if (waveLevel % 6 == 0)
         {
             health += 7;
-            velocity++;
         }
         else if (waveLevel % 5 == 0)
         {

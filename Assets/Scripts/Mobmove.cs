@@ -17,7 +17,7 @@ public class Mobmove : MonoBehaviour {
     private NavMeshAgent nav_mob;
 
     private int normspeed;
-    public int slowspeed = 2;
+    public int slowspeed;
     public float slowedtime = 1.5f;
     public bool immune;
 
@@ -34,6 +34,7 @@ public class Mobmove : MonoBehaviour {
         if (castle)
             GetComponent<NavMeshAgent>().destination = castle.transform.position;
         hpmax = hp;
+        slowspeed = normspeed - 3;
 	}
 
     void Update()
