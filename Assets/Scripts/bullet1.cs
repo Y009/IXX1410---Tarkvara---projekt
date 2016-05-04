@@ -102,13 +102,15 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
     void updatetarget()         //targetib v2himate eludega mobi, ice toweri puhul mitte juba slowitut, kui slowall == false
     {
         if (enemiesInRange.Count > 0)
-        { 
-            if(ice && slowall)
+        {
+            if (ice && slowall)
                 enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().slow).ToList();
             else
                 enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().hp).ToList();
             target = enemiesInRange[0];
         }
+        else
+            target = null;
     }
 
     void Shoot(Collider co)

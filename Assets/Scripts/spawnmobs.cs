@@ -24,9 +24,9 @@ public class spawnmobs : MonoBehaviour
     private int enemyAmount;
     private int bossAmount = 1;
     private int defenemyAmount = 10;
-    private float spawnIntervall = 1f;
+    private float spawnIntervall = 1f; //1
     private int waveEndBonus = 25;
-    private float bossBonusHP = 272f;
+    private float bossBonusHP = 231f;
 
     private GameObject s_money;
 
@@ -135,21 +135,19 @@ public class spawnmobs : MonoBehaviour
         if (waveLevel % 10 == 0)     //boss lvl
         {
             health += bossBonusHP;
-            bossBonusHP += bossBonusHP;
             print(health);
-            enemyAmount = 1;
+            enemyAmount = bossAmount;
             defenemyAmount += 2;
-            bossAmount++;
+            //bossAmount++;
         }
         else if (waveLevel % 6 == 0)
         {
             health += 7;
-            velocity += 0.5f;
+            velocity += 0.25f;
         }
         else if (waveLevel % 5 == 0)
         {
             immunelevel = true;
-            health += 2;
         }
         else
             health += 5;
@@ -184,10 +182,11 @@ public class spawnmobs : MonoBehaviour
 
     void finishWave()
     {
-        if (waveLevel % 11 == 0)
+        if (waveLevel == 11 || waveLevel ==21 || waveLevel ==31 )
         {
             health -= bossBonusHP;
             enemyAmount = defenemyAmount;
+            bossBonusHP += bossBonusHP;
         }
         if (waveLevel == 31)
             StartCoroutine(wingame());
