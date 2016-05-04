@@ -1,11 +1,9 @@
 TO DO:<br>
--fixida bullet1() fixedupdate .sort 2ra<br>
--add more towers<br>
 -piirata kaameral nooltega liikumies xz teljele<br>
 -kui esimest korda kaamerat liigutada middle mouse clickiga siis s2ilitada algne kaamera positsioon <br>
 -algsed levelid<br>
--castle elud health scriptis v6i uus script sellele teha <br>
--normaalsed tekstuurid/fancy graphics<br>
+-enable/disable kirjeldava gui elemendid, kui need midagi ei kuva (ei lase klikke l2bi)<br>
+-???<br>
 
 
 
@@ -19,8 +17,13 @@ IXX1410 - Tarkvara-projekt
 
 ![TDpre0](https://i.imgur.com/ccULAfZ.gif)
 ![TDpre](http://i.imgur.com/ZqMOLMH.gif)
-
 ![TDpre2](http://i.imgur.com/ZRVZi43.gif)
+---------------------
+i don't even
+---------------------
+![TDpre3](http://i.imgur.com/a037j9v.png)
+![TDpre4](http://i.imgur.com/ebdVB6n.png)
+![TDpre5](http://i.imgur.com/L2wUPzp.png)
 <pre>
 loetavad asjad on Assets/Scripts/      -koodilõigud
 Assets/Textures/                       -tekstuurid
