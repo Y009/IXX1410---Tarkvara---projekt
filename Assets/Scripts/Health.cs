@@ -9,6 +9,17 @@ public class Health : MonoBehaviour
     private int relay2;
     private float hp;
     private float hpmax;
+    private GameObject go;
+    private GameObject go2;
+    private scorecalc other;
+    private moneycalc other2;
+    void Awake()
+    { 
+        go = GameObject.Find("score");
+        other = (scorecalc)go.GetComponent(typeof(scorecalc));
+        go2 = GameObject.Find("money");
+        other2 = (moneycalc)go2.GetComponent(typeof(moneycalc));
+    }
 
 	void Start () 
     {
@@ -42,6 +53,8 @@ public class Health : MonoBehaviour
         {
             hp = hp - modhp; // kui elud pole kriitilised v]tab elu maha
             updatehp();
+            if (transform.parent.tag == "castle")
+                decreasescore();
         }
         else
         {
@@ -55,16 +68,18 @@ public class Health : MonoBehaviour
     }
     void decreaseElse()
     { 
-        Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
-        relay = this.transform.parent.GetComponent<Mobmove>().svalue;
-        GameObject go = GameObject.Find("score");
-        scorecalc other = (scorecalc)go.GetComponent(typeof(scorecalc));
-        other.modifyscore(relay);
-
+        decreasescore();
         relay2 = this.transform.parent.GetComponent<Mobmove>().mvalue;
-        GameObject go2 = GameObject.Find("money");
-        moneycalc other2 = (moneycalc)go2.GetComponent(typeof(moneycalc));
         other2.modifymoney(relay2);
+        Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
     
+    }
+    void decreasescore()
+    {
+        if (transform.parent.tag == "castle")
+            relay = -50;                        //teha modulaarseks
+        else
+            relay = this.transform.parent.GetComponent<Mobmove>().svalue;
+        other.modifyscore(relay);
     }
 }

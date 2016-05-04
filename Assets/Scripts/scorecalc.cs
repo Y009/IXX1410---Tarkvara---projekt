@@ -6,8 +6,17 @@ public class scorecalc : MonoBehaviour {
 
     Text skoortxt;
     private int score;
+    public GameObject go_globalobj;
+    private globalscript s_globalscript;
+
+    void Awake()
+    {
+        go_globalobj = GameObject.Find("globalobj");    
+    }
+
     void Start()
     {
+        s_globalscript = go_globalobj.GetComponent<globalscript>();
         skoortxt = GetComponent<Text>();
         score = 0;
         UpdateScore();
@@ -22,5 +31,6 @@ public class scorecalc : MonoBehaviour {
     void UpdateScore()
     {
         skoortxt.text = "Score: " + score;
+        s_globalscript.skoor = score;
     }
 }

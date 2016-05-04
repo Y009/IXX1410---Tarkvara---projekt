@@ -76,25 +76,13 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
 
     void Update()
     {
-        target = null;
-        float minHpEnemy =int.MaxValue;                   //initsialiseerib lihtsalt int'ga, aga kuna edasi otsib v2iksemaid siis max int v22rtusega.
-        foreach (GameObject enemy in enemiesInRange)      //targetib alati v2himate eludega vastast
-        {
-            float hpdiff = enemy.GetComponent<Mobmove>().hpdiff();
-            if (hpdiff < minHpEnemy)
-            {
-                target = enemy;
-                minHpEnemy = hpdiff;
-            }
-        }
-
+        updatetarget();
         if (target!=null)                       //kui ei ole sihtm2rki, ei lase
         {
             gameObject.transform.rotation = Quaternion.LookRotation(target.transform.position - gameObject.transform.position);
             transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             if(Time.time - LastShotTime > AttTime)      //kas on piisavalt aega m66dunud viimasest laskmisest
             {
-                updatetarget();
                 Shoot(target.GetComponent<Collider>());
                 LastShotTime = Time.time;       //uus viimaselaskmise aeg
             }
@@ -113,11 +101,14 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
 
     void updatetarget()         //targetib v2himate eludega mobi, ice toweri puhul mitte juba slowitut, kui slowall == false
     {
-        if(ice && slowall)
-            enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().slow).ToList();
-        else
-            enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().hp).ToList();
-        target = enemiesInRange[0];
+        if (enemiesInRange.Count > 0)
+        { 
+            if(ice && slowall)
+                enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().slow).ToList();
+            else
+                enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().hp).ToList();
+            target = enemiesInRange[0];
+        }
     }
 
     void Shoot(Collider co)
@@ -141,6 +132,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             destroydelegate del = other.gameObject.GetComponent<destroydelegate>();
             del.enemyDelegate += OnEnemyDestroy;
         }
+        updatetarget();
     }
 
     void OnTriggerExit(Collider other)          //kui l2heb alast v2lja eemaldab listist
@@ -151,6 +143,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             destroydelegate del = other.gameObject.GetComponent<destroydelegate>();
             del.enemyDelegate -= OnEnemyDestroy;
         }
+        updatetarget();
     }
 
     public void upgradingtower(int i)

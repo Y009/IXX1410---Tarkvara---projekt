@@ -78,6 +78,8 @@
      <Compile Include="Assets\Scripts\selecttower.cs" />
      <Compile Include="Assets\Scripts\spawnmobs.cs" />
      <Compile Include="Assets\Scripts\upgtext.cs" />
+     <Compile Include="Assets\endgamescore.cs" />
+     <Compile Include="Assets\globalscript.cs" />
      <Compile Include="Assets\waveinfo.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

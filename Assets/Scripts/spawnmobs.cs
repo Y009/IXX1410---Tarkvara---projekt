@@ -10,7 +10,6 @@ public class spawnmobs : MonoBehaviour
     private bool waveActive = false;
 
     public GameObject monsterPrefab;
-    //public GameObject monsterPrefab2;
     public Transform[] spawnPointRoot;
 
     private int waveLevel = 1;
@@ -22,7 +21,9 @@ public class spawnmobs : MonoBehaviour
     private bool gameover = false;
     private float velocity = 5f;
     private float health = 5f;
-    private int enemyAmount = 10;
+    private int enemyAmount;
+    private int bossAmount = 1;
+    private int defenemyAmount = 10;
     private float spawnIntervall = 1f;
     private int waveEndBonus = 25;
     private float bossBonusHP = 272f;
@@ -69,6 +70,7 @@ public class spawnmobs : MonoBehaviour
         s_nextlvltimer = go_timetilnextlvl.GetComponent<nextlvltimer>();
         enemies = new ArrayList();
         btntext = go_startwave.GetComponent<Button>().GetComponentInChildren<Text>();
+        enemyAmount = defenemyAmount;
     }
 
     void Update()
@@ -130,12 +132,14 @@ public class spawnmobs : MonoBehaviour
 
     void setNextWave()
     {
-        //s_gui.waveinfo(0, waveLevel, health, immunelevel, enemyAmount);
         if (waveLevel % 10 == 0)     //boss lvl
         {
             health += bossBonusHP;
+            bossBonusHP += bossBonusHP;
             print(health);
             enemyAmount = 1;
+            defenemyAmount += 2;
+            bossAmount++;
         }
         else if (waveLevel % 6 == 0)
         {
@@ -183,9 +187,11 @@ public class spawnmobs : MonoBehaviour
         if (waveLevel % 11 == 0)
         {
             health -= bossBonusHP;
-            enemyAmount = 12;
+            enemyAmount = defenemyAmount;
         }
-        go_startwave.GetComponent<Button>().enabled = true; ;
+        if (waveLevel == 31)
+            StartCoroutine(wingame());
+        go_startwave.GetComponent<Button>().enabled = true;
         btntext.text = lvlstartstring;
         s_nextlvltimer.settime();
         waveActive = false;
@@ -196,8 +202,15 @@ public class spawnmobs : MonoBehaviour
         s_money.GetComponent<moneycalc>().modifymoney(waveEndBonus);
         state = GameState.preStart;
     }
-	
-    void OnGUI()
+
+    IEnumerator wingame()
+    {
+        SceneManager.LoadScene("scene5", LoadSceneMode.Single);
+        yield return new WaitForSeconds(0.2f);
+        SceneManager.SetActiveScene(SceneManager.GetActiveScene());
+    }
+
+    void OnGUI()  //lykata ymber guiscripti ja teha nupu vbajutusele eraldi funkts, yieldiga
     {
 		GUI.skin = GUI_1;
 		if (gameover)
@@ -210,6 +223,9 @@ public class spawnmobs : MonoBehaviour
 					if (GUI.Button(new Rect (60, 90, 200, 60), "Restart")){
 						Time.timeScale = 1f;
 						gameover = false;
+                        SceneManager.LoadScene("scene4", LoadSceneMode.Single);
+                        System.Threading.Thread.Sleep(250);
+                        SceneManager.SetActiveScene(SceneManager.GetActiveScene());
 					} else if (GUI.Button(new Rect (60, 180, 200, 60), "Main Menu")){
 						SceneManager.LoadScene("scene3", LoadSceneMode.Single);
 					    Time.timeScale = 1f;
