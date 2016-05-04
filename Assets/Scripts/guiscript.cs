@@ -55,7 +55,7 @@ public class guiscript : MonoBehaviour {
     IEnumerator fadetext()
     {
         leveltext.CrossFadeAlpha(1.0f, 0, false);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3.5f); //3.5f on aeg kaua tekst on ekraanil
         leveltext.CrossFadeAlpha(0.0f, 2, false);
     }
 }

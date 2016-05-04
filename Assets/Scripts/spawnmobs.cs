@@ -10,6 +10,7 @@ public class spawnmobs : MonoBehaviour
     private bool waveActive = false;
 
     public GameObject monsterPrefab;
+    //public GameObject monsterPrefab2;
     public Transform[] spawnPointRoot;
 
     private int waveLevel = 1;
@@ -22,8 +23,9 @@ public class spawnmobs : MonoBehaviour
     private float velocity = 5f;
     private float health = 5f;
     private int enemyAmount = 10;
-    private float spawnIntervall = 1;
+    private float spawnIntervall = 1f;
     private int waveEndBonus = 25;
+    private float bossBonusHP = 272f;
 
     private GameObject s_money;
 
@@ -38,11 +40,12 @@ public class spawnmobs : MonoBehaviour
     private string lvlactivestring = "Level Active";
     private string lvlstartstring = "Start Now";
     private bool immunelevel = false;
-    #endregion
-	
+
 	public GUISkin GUI_1;
 	float w = (Screen.width/2);
 	float h = (Screen.height/2);
+    #endregion
+	
 	
     public enum GameState
     {
@@ -128,9 +131,16 @@ public class spawnmobs : MonoBehaviour
     void setNextWave()
     {
         //s_gui.waveinfo(0, waveLevel, health, immunelevel, enemyAmount);
-        if (waveLevel % 6 == 0)
+        if (waveLevel % 10 == 0)     //boss lvl
+        {
+            health += bossBonusHP;
+            print(health);
+            enemyAmount = 1;
+        }
+        else if (waveLevel % 6 == 0)
         {
             health += 7;
+            velocity += 0.5f;
         }
         else if (waveLevel % 5 == 0)
         {
@@ -170,7 +180,11 @@ public class spawnmobs : MonoBehaviour
 
     void finishWave()
     {
-        print("finished wave");
+        if (waveLevel % 11 == 0)
+        {
+            health -= bossBonusHP;
+            enemyAmount = 12;
+        }
         go_startwave.GetComponent<Button>().enabled = true; ;
         btntext.text = lvlstartstring;
         s_nextlvltimer.settime();
@@ -186,26 +200,6 @@ public class spawnmobs : MonoBehaviour
     void OnGUI()
     {
 		GUI.skin = GUI_1;
-        // if (gameover)
-        // {
-            // Time.timeScale = 0f;
-            // GUILayout.Label("GG");
-            // if (GUILayout.Button("Restart"))
-            // {
-                // Time.timeScale = 1f;
-                // gameover = false;
-            // }
-            // else if (GUILayout.Button("Main Menu"))
-            // {
-                // SceneManager.LoadScene("scene3", LoadSceneMode.Single);
-                // Time.timeScale = 1f;
-                // System.Threading.Thread.Sleep(250);
-                // SceneManager.SetActiveScene(SceneManager.GetActiveScene());
-            // }
-            // else if (GUILayout.Button("EXIT"))
-                // Application.Quit();
-
-        // }
 		if (gameover)
 		{
 			GUILayout.BeginArea (new Rect (w-160, h-180, 320, 360));
@@ -220,9 +214,6 @@ public class spawnmobs : MonoBehaviour
 						SceneManager.LoadScene("scene3", LoadSceneMode.Single);
 					    Time.timeScale = 1f;
 						System.Threading.Thread.Sleep(250);         //.sleep ei ole v2ga 6ige kasutada, vaja mingi aeg v2lja vahetada
-						//Vector3 loc = GameObject.Find("Main Camera").transform.position + new Vector3(0, -1.5f, 0);
-						//AudioSource.PlayClipAtPoint(playsnd, loc);
-						//paused = togglePause();
 						SceneManager.SetActiveScene(SceneManager.GetActiveScene());
 					} else if (GUI.Button(new Rect (60, 270, 200, 60), "Exit")){
 						Application.Quit();

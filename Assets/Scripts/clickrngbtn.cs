@@ -24,7 +24,10 @@ public class clickrngbtn : MonoBehaviour {
     {
         if (tower)
         {
-            maxrngstring = "Upgrade range\n Current level:" + tower.GetComponent<bullet1>().maxrng + "\n Cost:" + tower.GetComponent<bullet1>().rngcost;
+            if (tower.GetComponent<bullet1>().maxrng != tower.GetComponent<bullet1>().maxuplvl)
+             maxrngstring = "Upgrade range by " + tower.GetComponent<bullet1>().rngupg + "\n Current level:" + tower.GetComponent<bullet1>().maxrng + "\n Cost:" + tower.GetComponent<bullet1>().rngcost;
+            else
+                maxrngstring = "Max level";
             s_upgtext.text = maxrngstring;
         }
     }

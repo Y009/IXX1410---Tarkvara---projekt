@@ -24,9 +24,11 @@ public class clickspdbtn : MonoBehaviour {
     {
         if (tower)
         {
-            maxspdstring = "Upgrade speed\n Current level:" + tower.GetComponent<bullet1>().maxspd + "\n Cost:" + tower.GetComponent<bullet1>().spdcost;
+            if (tower.GetComponent<bullet1>().maxspd != tower.GetComponent<bullet1>().maxuplvl)
+                maxspdstring = "Upgrade speed by " + tower.GetComponent<bullet1>().spdupg + "\n Current level:" + tower.GetComponent<bullet1>().maxspd + "\n Cost:" + tower.GetComponent<bullet1>().spdcost;
+            else
+                maxspdstring = "Max level";
             s_upgtext.text = maxspdstring;
         }
     }
-
 }

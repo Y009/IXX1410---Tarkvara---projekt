@@ -2,23 +2,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class bullet1 : MonoBehaviour, IPointerClickHandler
 {
 
 #region initis
     public int towerprice = 100;
-    public float sellmod = 0.75f; //mitu protsenti annan myyes tagasi
-    public int maxuplvl = 5;    //mitu korda luban upgradeida yhte toweri statsi
-    public int dpscost = 75, spdcost = 75, rngcost = 75;
-    public int maxdps = 0, maxspd = 0, maxrng = 0;
-    public int defupadd = 20;
+    public float sellmod = 0.75f;   //mitu protsenti annan myyes tagasi
+    public int maxuplvl = 5;        //mitu korda luban upgradeida yhte toweri statsi
+    public int dpscost = 75, spdcost = 75, rngcost = 75; 
+    public int maxdps = 0, maxspd = 0, maxrng = 0; //curent level
+    public int defupadd = 20;       //default upg cost increase
+
+    public float dmgupg;
+    public float spdupg = 0.1f;     //kui palju upgrade juurde annab
+    public float rngupg = 1f;
 
     private float LastShotTime;
     public float AttTime;
     public float dmg;
     private SphereCollider coll;
     public bool ice;
+    public bool splash;
+    public bool slowall = true;     //teha checkbox m2ngijale; kui false siis ice tower targetib ka alati v2ikseimate eludega mobi.
 
     private GameObject s_money;
     private GameObject go_GUI;
@@ -87,6 +94,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
             if(Time.time - LastShotTime > AttTime)      //kas on piisavalt aega m66dunud viimasest laskmisest
             {
+                updatetarget();
                 Shoot(target.GetComponent<Collider>());
                 LastShotTime = Time.time;       //uus viimaselaskmise aeg
             }
@@ -103,18 +111,14 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             mat.SetColor("_Color", Color.white);
     }
 
-    //void FixedUpdate()                // .Sort() on vaja ylevaadata, et null'iga t66taks korralikult / kasutada OrderBy()'d
-    //{
-    //    if (!(enemiesInRange.count = 0))
-    //    {
-    //        if (Time.fixedTime >= UpdateTime)
-    //        {
-    //            enemiesInRange.Sort();
-    //            target = enemiesInRange[0];
-    //            UpdateTime = Time.fixedTime + 0.3f;
-    //        }
-    //    }
-    //}
+    void updatetarget()         //targetib v2himate eludega mobi, ice toweri puhul mitte juba slowitut, kui slowall == false
+    {
+        if(ice && slowall)
+            enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().slow).ToList();
+        else
+            enemiesInRange = enemiesInRange.OrderBy(x => x.GetComponent<Mobmove>().hp).ToList();
+        target = enemiesInRange[0];
+    }
 
     void Shoot(Collider co)
     {
@@ -156,7 +160,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             case 0:
                 if (haveEnoughMoney(dpscost) && (maxdps != maxuplvl))
                 {
-                    dmg += 1;
+                    dmg += dmgupg;
                     s_money.GetComponent<moneycalc>().modifymoney(-dpscost);
                     dpscost += defupadd;
                     maxdps++;
@@ -166,7 +170,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             case 1:
                 if (haveEnoughMoney(spdcost) && (maxspd != maxuplvl))
                 {
-                    AttTime -= 0.1f;
+                    AttTime -= spdupg;
                     s_money.GetComponent<moneycalc>().modifymoney(-spdcost);
                     spdcost += defupadd;
                     maxspd++;
@@ -176,7 +180,7 @@ public class bullet1 : MonoBehaviour, IPointerClickHandler
             case 2:
                 if (haveEnoughMoney(rngcost) && (maxrng != maxuplvl))
                 {
-                    coll.radius += 1;
+                    coll.radius += rngupg;
                     s_money.GetComponent<moneycalc>().modifymoney(-rngcost);
                     rngcost += defupadd;
                     maxrng++;

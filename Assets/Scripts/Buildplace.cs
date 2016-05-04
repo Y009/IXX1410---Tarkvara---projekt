@@ -44,7 +44,7 @@ public class Buildplace : MonoBehaviour, IPointerClickHandler
                 s_selecttower.buildplace = this.gameObject;
             s_selecttower.upgcanvas2.GetComponent<Canvas>().enabled = true;
             selected = true;
-            clickloc = eventData.pointerPress.transform.position;
+            clickloc = renderer.bounds.center; //v]tan klotsi keskkoha
         }
     }
 

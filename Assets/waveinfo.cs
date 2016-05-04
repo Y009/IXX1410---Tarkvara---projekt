@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class waveinfo : MonoBehaviour {
-    //actually make this do stuff..............
+
     public string text;
     Text upgdesc;
 

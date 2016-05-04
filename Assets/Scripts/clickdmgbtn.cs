@@ -25,8 +25,11 @@ public class clickdmgbtn : MonoBehaviour
     public void sendtext()
     {
         if (tower)
-        { 
-            maxdpsstring = "Upgrade damage\n Current level:" + tower.GetComponent<bullet1>().maxdps + "\n Cost:" + tower.GetComponent<bullet1>().dpscost;
+        {
+            if (tower.GetComponent<bullet1>().maxdps != tower.GetComponent<bullet1>().maxuplvl)
+                maxdpsstring = "Upgrade damage by " + tower.GetComponent<bullet1>().dmgupg + "\n Current level:" + tower.GetComponent<bullet1>().maxdps + "\n Cost:" + tower.GetComponent<bullet1>().dpscost;
+            else
+                maxdpsstring = "Max level";
             s_upgtext.text = maxdpsstring;
         }
     }

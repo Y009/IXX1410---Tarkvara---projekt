@@ -8,7 +8,7 @@ public class Mobmove : MonoBehaviour {
     public float hp;
     private float hpmax;
     public bool iceslow = false;
-    private bool slow = false;
+    public bool slow = false;
 
     private float hittime;
 
@@ -20,6 +20,7 @@ public class Mobmove : MonoBehaviour {
     public int slowspeed;
     public float slowedtime = 1.5f;
     public bool immune;
+    public int dmgtocastle;
 
     void Awake()
     {
@@ -66,7 +67,7 @@ public class Mobmove : MonoBehaviour {
     {
         if (co.gameObject.tag == "castle")
         {
-            co.GetComponentInChildren<Health>().decrease(1);
+            co.GetComponentInChildren<Health>().decrease(dmgtocastle);
             Destroy(gameObject);
         }
     }

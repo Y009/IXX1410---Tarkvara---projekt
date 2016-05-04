@@ -12,7 +12,7 @@ public class buildtower2 : MonoBehaviour
 
     void Start()
     {
-        buildtower2strng = "Splash Tower\n Attack damage: 2\n Attack speed: 0.75\n Attack range: 10\n Cost: 150";
+        buildtower2strng = "Splash Tower\n Attack damage: 2\n Attack speed: 0.75\n Attack range: 10\n Cost: 150\n Special: Splash Attack";
         go_textrecv = GameObject.Find("upgdesc2");
         s_upgtext = go_textrecv.GetComponent<upgtext>();
     }
