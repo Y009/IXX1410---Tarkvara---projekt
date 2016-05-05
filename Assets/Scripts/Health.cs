@@ -69,7 +69,11 @@ public class Health : MonoBehaviour
     void decreaseElse()
     { 
         decreasescore();
-        other2.modifymoney(relay2);
+        if (transform.parent.tag == "Enemy")
+        {
+            relay2 = this.transform.parent.GetComponent<Mobmove>().mvalue;
+            other2.modifymoney(relay2);
+        }
         Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
     
     }
