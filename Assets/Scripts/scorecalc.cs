@@ -11,11 +11,13 @@ public class scorecalc : MonoBehaviour {
 
     void Awake()
     {
-        go_globalobj = GameObject.Find("globalobj");    
+        if (!(GameObject.FindWithTag("globalobj")))
+            Instantiate(go_globalobj);
     }
 
     void Start()
     {
+        go_globalobj = GameObject.FindWithTag("globalobj");    
         s_globalscript = go_globalobj.GetComponent<globalscript>();
         skoortxt = GetComponent<Text>();
         score = 0;

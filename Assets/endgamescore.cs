@@ -11,7 +11,7 @@ public class endgamescore : MonoBehaviour {
 
     void Start()
     {
-        stats = GameObject.Find("globalobj");
+        stats = GameObject.FindWithTag("globalobj");
         s_globalscript = stats.GetComponent<globalscript>();
         upgdesc = GetComponent<Text>();
         text = "Score : " + s_globalscript.skoor;

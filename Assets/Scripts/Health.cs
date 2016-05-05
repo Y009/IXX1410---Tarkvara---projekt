@@ -69,7 +69,6 @@ public class Health : MonoBehaviour
     void decreaseElse()
     { 
         decreasescore();
-        relay2 = this.transform.parent.GetComponent<Mobmove>().mvalue;
         other2.modifymoney(relay2);
         Destroy(transform.parent.gameObject);   //kui elud on kriitilised h2vitab uniti
     

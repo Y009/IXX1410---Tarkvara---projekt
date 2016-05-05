@@ -9,7 +9,9 @@ public class spawnmobs : MonoBehaviour
     #region initis
     private bool waveActive = false;
 
-    public GameObject monsterPrefab;
+    private GameObject monsterPrefab;
+    public GameObject monsterPrefab2; //normal mob
+    public GameObject monsterPrefab3; //boss mob
     public Transform[] spawnPointRoot;
 
     private int waveLevel = 1;
@@ -71,6 +73,7 @@ public class spawnmobs : MonoBehaviour
         enemies = new ArrayList();
         btntext = go_startwave.GetComponent<Button>().GetComponentInChildren<Text>();
         enemyAmount = defenemyAmount;
+        monsterPrefab = monsterPrefab2;
     }
 
     void Update()
@@ -138,6 +141,7 @@ public class spawnmobs : MonoBehaviour
             print(health);
             enemyAmount = bossAmount;
             defenemyAmount += 2;
+            monsterPrefab = monsterPrefab3;
             //bossAmount++;
         }
         else if (waveLevel % 6 == 0)
@@ -187,6 +191,7 @@ public class spawnmobs : MonoBehaviour
             health -= bossBonusHP;
             enemyAmount = defenemyAmount;
             bossBonusHP += bossBonusHP;
+            monsterPrefab = monsterPrefab2;
         }
         if (waveLevel == 31)
             StartCoroutine(wingame());
@@ -217,17 +222,18 @@ public class spawnmobs : MonoBehaviour
 			GUILayout.BeginArea (new Rect (w-160, h-180, 320, 360));
 				GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace ();
-					Time.timeScale = 0f;
+					//Time.timeScale = 0f;
 					GUI.Box(new Rect(0, 0, 320, 360), "Game over");
 					if (GUI.Button(new Rect (60, 90, 200, 60), "Restart")){
-						Time.timeScale = 1f;
 						gameover = false;
-                        SceneManager.LoadScene("scene4", LoadSceneMode.Single);
-                        System.Threading.Thread.Sleep(250);
+						//Time.timeScale = 1f;
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                        //SceneManager.LoadScene("scene4", LoadSceneMode.Single);
+                        //System.Threading.Thread.Sleep(250);
                         SceneManager.SetActiveScene(SceneManager.GetActiveScene());
 					} else if (GUI.Button(new Rect (60, 180, 200, 60), "Main Menu")){
 						SceneManager.LoadScene("scene3", LoadSceneMode.Single);
-					    Time.timeScale = 1f;
+					   // Time.timeScale = 1f;
 						System.Threading.Thread.Sleep(250);         //.sleep ei ole v2ga 6ige kasutada, vaja mingi aeg v2lja vahetada
 						SceneManager.SetActiveScene(SceneManager.GetActiveScene());
 					} else if (GUI.Button(new Rect (60, 270, 200, 60), "Exit")){
